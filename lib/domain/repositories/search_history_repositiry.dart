@@ -1,3 +1,4 @@
+
 abstract class SearchHistoryRepository {
   Future<String?> getCityFromLDS();
 

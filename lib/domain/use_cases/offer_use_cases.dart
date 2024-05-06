@@ -1,3 +1,4 @@
+import 'package:either_dart/either.dart';
 import 'package:tickets_search_test/domain/entities/mapper/entities_mapper.dart';
 import 'package:tickets_search_test/domain/repositories/offer_repository.dart';
 
@@ -6,7 +7,11 @@ class OfferUseCases {
 
   const OfferUseCases(this.repository);
 
-  Future<List<OfferEntity>> getAll() async {
-    return await repository.getAll();
+  Future<Either<Exception, List<OfferEntity>>> getAll() async {
+    try {
+      return Right(await repository.getAll());
+    } catch (e) {
+      return Left(Exception('Failed to get offers'));
+    }
   }
 }

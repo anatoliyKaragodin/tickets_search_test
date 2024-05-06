@@ -43,7 +43,10 @@ dependencies:
   shared_preferences: ^2.2.3
   # Remote DS
   dio: ^5.4.3+1
-
+  # Error handling
+  either_dart: ^1.0.0
+  # Test
+  mockito: ^5.4.4
 
 dev_dependencies:
   flutter_test:

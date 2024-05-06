@@ -1,3 +1,4 @@
+
 import '../entities/mapper/entities_mapper.dart';
 
 abstract class OfferRepository {

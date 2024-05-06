@@ -1,11 +1,10 @@
 part of 'mapper/entities_mapper.dart';
 
-@MappableClass()
+@MappableClass(caseStyle: CaseStyle.snakeCase)
 class OfferEntity with OfferEntityMappable{
   final int id;
   final String title;
   final String town;
-  @MappableField()
   final PriceEntity price;
 
   OfferEntity({

@@ -5,7 +5,6 @@ class TicketsOfferEntity with TicketsOfferEntityMappable {
   final int id;
   final String title;
   final List<String> timeRange;
-  @MappableField()
   final PriceEntity price;
 
   TicketsOfferEntity({

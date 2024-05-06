@@ -1,22 +1,17 @@
 part of 'mapper/entities_mapper.dart';
 
-@MappableClass()
+@MappableClass(caseStyle: CaseStyle.snakeCase)
 class TicketEntity with TicketEntityMappable {
   final int id;
   final String badge;
-  @MappableField()
   final PriceEntity price;
   final String providerName;
   final String company;
-  @MappableField()
   final DepartureEntity departure;
-  @MappableField()
   final ArrivalEntity arrival;
   final bool hasTransfer;
   final bool hasVisaTransfer;
-  @MappableField()
   final LuggageEntity luggage;
-  @MappableField()
   final HandLuggageEntity handLuggage;
   final bool isReturnable;
   final bool isExchangable;

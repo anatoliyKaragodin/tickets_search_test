@@ -34,7 +34,7 @@ class TicketEntityMapper extends ClassMapperBase<TicketEntity> {
       Field('price', _$price);
   static String _$providerName(TicketEntity v) => v.providerName;
   static const Field<TicketEntity, String> _f$providerName =
-      Field('providerName', _$providerName);
+      Field('providerName', _$providerName, key: 'provider_name');
   static String _$company(TicketEntity v) => v.company;
   static const Field<TicketEntity, String> _f$company =
       Field('company', _$company);
@@ -46,22 +46,22 @@ class TicketEntityMapper extends ClassMapperBase<TicketEntity> {
       Field('arrival', _$arrival);
   static bool _$hasTransfer(TicketEntity v) => v.hasTransfer;
   static const Field<TicketEntity, bool> _f$hasTransfer =
-      Field('hasTransfer', _$hasTransfer);
+      Field('hasTransfer', _$hasTransfer, key: 'has_transfer');
   static bool _$hasVisaTransfer(TicketEntity v) => v.hasVisaTransfer;
   static const Field<TicketEntity, bool> _f$hasVisaTransfer =
-      Field('hasVisaTransfer', _$hasVisaTransfer);
+      Field('hasVisaTransfer', _$hasVisaTransfer, key: 'has_visa_transfer');
   static LuggageEntity _$luggage(TicketEntity v) => v.luggage;
   static const Field<TicketEntity, LuggageEntity> _f$luggage =
       Field('luggage', _$luggage);
   static HandLuggageEntity _$handLuggage(TicketEntity v) => v.handLuggage;
   static const Field<TicketEntity, HandLuggageEntity> _f$handLuggage =
-      Field('handLuggage', _$handLuggage);
+      Field('handLuggage', _$handLuggage, key: 'hand_luggage');
   static bool _$isReturnable(TicketEntity v) => v.isReturnable;
   static const Field<TicketEntity, bool> _f$isReturnable =
-      Field('isReturnable', _$isReturnable);
+      Field('isReturnable', _$isReturnable, key: 'is_returnable');
   static bool _$isExchangable(TicketEntity v) => v.isExchangable;
   static const Field<TicketEntity, bool> _f$isExchangable =
-      Field('isExchangable', _$isExchangable);
+      Field('isExchangable', _$isExchangable, key: 'is_exchangable');
 
   @override
   final MappableFields<TicketEntity> fields = const {

@@ -8,9 +8,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        
+        brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        // useMaterial3: true,
       ),
       home: const MainScreen(),
     );

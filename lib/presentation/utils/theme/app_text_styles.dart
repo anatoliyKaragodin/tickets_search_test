@@ -15,7 +15,7 @@ class AppTextStyles {
   static const double _size10 = 10;
 
   static double _fontSize(BuildContext context, double figmaFontSize) =>
-      AppAdaptiveSize(context).widthInPixels(22);
+      AppAdaptiveSize(context).widthInPixels(figmaFontSize);
 
 
   // Text styles

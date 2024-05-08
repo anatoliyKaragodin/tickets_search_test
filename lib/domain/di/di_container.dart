@@ -33,7 +33,7 @@ Future<void> setupDI() async {
 
   // Регистрация DS
   final dio = getIt.get<Dio>();
-  final sharedPreferences = getIt.get<SharedPreferences>();
+  final sharedPreferences = await getIt.getAsync<SharedPreferences>();
 
   getIt.registerSingleton<TicketRDS>(TicketRDSapiImpl(dio));
   getIt.registerSingleton<SearchHistoryLDS>(

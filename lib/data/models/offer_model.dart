@@ -23,9 +23,8 @@ class OfferModel with OfferModelMappable{
     );
   }
 
-  static List<OfferModel> parseOffers(String responseBody) {
-  final parsed = json.decode(responseBody);
-  List<dynamic> offers = parsed['offers'];
+  static List<OfferModel> parseOffers(Map<String, dynamic> responseBody) {
+  List<dynamic> offers = responseBody['offers'];
   
   return offers.map((offer) => OfferModel(
     id: offer['id'],

@@ -1,11 +1,15 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static Basic get basic => Basic();
-  static Special get special => Special();
+  AppColors._();
+
+  static _Basic get basic => _Basic();
+  static _Special get special => _Special();
 }
 
-class Basic {
+class _Basic {
   Color black = const Color(0xFF0C0C0C);
   Color grey1 = const Color(0xFF3E3F43);
   Color grey2 = const Color(0xFF2F3035);
@@ -17,7 +21,7 @@ class Basic {
   Color white = const Color(0xFFFFFFFF);
 }
 
-class Special {
+class _Special {
   Color blue = const Color(0xFF2269BC);
   Color darkBlue = const Color(0xFF00427D);
   Color green = const Color(0xFF3A633B);

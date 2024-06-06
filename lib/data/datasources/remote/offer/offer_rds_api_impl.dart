@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:tickets_search_test/data/datasources/remote/offer/offer_rds.dart';
 import 'package:tickets_search_test/data/models/mapper/models_mapper.dart';
-import 'dart:developer' as dev;
 
 class OfferRDSapiImpl implements OfferRDS {
   final Dio dio;

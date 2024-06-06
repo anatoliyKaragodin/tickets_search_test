@@ -50,10 +50,9 @@ class TicketModel with TicketModelMappable {
     );
   }
 
-  static List<TicketModel> parseTickets(String data) {
-    final parsed = json.decode(data);
+  static List<TicketModel> parseTickets(Map<String, dynamic> data) {
 
-    List<dynamic> tickets = parsed['tickets'];
+    List<dynamic> tickets = data['tickets'];
 
     return tickets
         .map((ticket) => TicketModel(

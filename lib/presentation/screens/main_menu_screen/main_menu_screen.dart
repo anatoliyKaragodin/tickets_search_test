@@ -18,7 +18,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.basic.black,
-      body: SafeArea(child: widget.child),
+      body: SafeArea(child: SingleChildScrollView(child: widget.child)),
       bottomNavigationBar: AppBottomNavigationBarWidget(
         backgroundColor: AppColors.basic.black,
         onTap: (index) {

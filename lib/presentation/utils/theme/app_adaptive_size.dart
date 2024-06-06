@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AppAdaptiveSize {
-  final BuildContext context;
+class AppSize {
+  AppSize._();
+  static const figmaHeight = 800;
+  static const figmaWidth = 360;
 
-  const AppAdaptiveSize(this.context);
+  static double height(BuildContext context, double value) {
+    double height = MediaQuery.of(context).size.longestSide;
+    return value * (height / figmaHeight);
+  }
 
-  static const _figmaHeight = 800;
-
-  static const _figmaWidth = 360;
-
-  get height => MediaQuery.of(context).size.longestSide;
-
-  get width => MediaQuery.of(context).size.shortestSide;
-
-  double heightInPixels(double value) => value * (height / _figmaHeight);
-
-  double widthInPixels(double value) => value * (width / _figmaWidth);
+  static double width(BuildContext context, double value) {
+    double width = MediaQuery.of(context).size.shortestSide;
+    return value * (width / figmaWidth);
+  }
 }

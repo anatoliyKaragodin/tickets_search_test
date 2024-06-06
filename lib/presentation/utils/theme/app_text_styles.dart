@@ -15,8 +15,7 @@ class AppTextStyles {
   static const double _size10 = 10;
 
   static double _fontSize(BuildContext context, double figmaFontSize) =>
-      AppAdaptiveSize(context).widthInPixels(figmaFontSize);
-
+      AppSize.width(context, figmaFontSize);
 
   // Text styles
   static TextStyle title1(BuildContext context) => TextStyle(
@@ -34,6 +33,7 @@ class AppTextStyles {
   static TextStyle title3(BuildContext context) => TextStyle(
         fontFamily: _fontFamily1,
         fontWeight: _fontWeightMedium,
+        fontStyle: FontStyle.italic,
         fontSize: _fontSize(context, _size16),
       );
 

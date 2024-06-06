@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dart_mappable/dart_mappable.dart';
 

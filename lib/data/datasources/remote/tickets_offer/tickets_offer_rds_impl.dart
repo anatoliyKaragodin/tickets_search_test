@@ -9,16 +9,12 @@ class TicketsOfferRDSapiImpl implements TicketsOfferRDS {
   const TicketsOfferRDSapiImpl(this.dio);
 
   static const String ticketsOffersApiUrl =
-      'https://run.mocky.io/v3/3424132d-a51a-4613-b6c9-42b2d214f35f';
+      'https://run.mocky.io/v3/7e55bf02-89ff-4847-9eb7-7d83ef884017';
 
   @override
   Future<List<TicketsOfferModel>> getAll() async {
-    
-      Response response = await dio.get(ticketsOffersApiUrl);
+    Response response = await dio.get(ticketsOffersApiUrl);
 
-      final data = response.data;
-
-      return TicketsOfferModel.parseOffers(data);
-    
+    return TicketsOfferModel.parseOffers(response.data);
   }
 }

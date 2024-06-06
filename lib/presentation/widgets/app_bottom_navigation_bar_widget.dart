@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
-import 'package:tickets_search_test/presentation/widgets/app_svg_icon_widget.dart';
+import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 
 class AppBottomNavigationBarWidget extends StatefulWidget {
   const AppBottomNavigationBarWidget(
       {super.key,
       this.iconPaths = const [
-        'airplane.svg',
-        'car.svg',
-        'geopoint.svg',
-        'bell.svg',
-        'person.svg'
+        AppIconsPath.airplane,
+        AppIconsPath.car,
+        AppIconsPath.geopoint,
+        AppIconsPath.bell,
+        AppIconsPath.person
       ],
       this.labels = const [
         'Авиабилеты',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_VM.dart';
 import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
@@ -26,7 +27,12 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
       AppIconsPath.person,
       AppIconsPath.filter
     ];
-    final optionsTexts = ['обратно', '', '1, эконом', 'фильтры'];
+    final optionsTexts = [
+      'обратно',
+      DateFormat('d MMM, EEE', 'ru').format(ref.watch(vm.date)),
+      '1, эконом',
+      'фильтры'
+    ];
     final offerColors = [
       AppColors.special.red,
       AppColors.special.darkBlue,
@@ -47,49 +53,98 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
         ),
       ),
       Gap(AppSize.height(context, 15)),
-      _OptionsRow(optionsIcons: optionsIcons, optionsTexts: optionsTexts),
+      _OptionsRow(
+          optionsIcons: optionsIcons,
+          optionsTexts: optionsTexts,
+          onTapList: [null, () => vm.onChangeDate(context, ref), null, null]),
       Gap(AppSize.height(context, 15)),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: AppSize.width(context, 16)),
-        child: Container(
-            decoration: BoxDecoration(
-                color: AppColors.basic.grey2,
-                borderRadius: AppBorderRadius.mediumBorder(context)),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppSize.width(context, 16),
-                  vertical: AppSize.height(context, 16)),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Прямые рейсы',
-                      style: AppTextStyles.title2(context),
-                    ),
-                  ),
-                  SizedBox(
-                    child: switch (ref.watch(vm.ticketsOffersProvider)) {
-                      AsyncData(:final value) => Column(
-                          children: List.generate(
-                              3,
-                              (index) => AppTicketsOfferWidget(
-                                    ticketsOffer: value[index],
-                                    color: offerColors[index],
-                                  ))),
-                      AsyncError(:final error, :final stackTrace) =>
-                        AppErrorWidget(
-                          error: error,
-                          stackTrace: stackTrace,
-                        ),
-                      _ => const Center(child: CircularProgressIndicator())
-                    },
-                  ),
-                ],
-              ),
-            )),
+        child: _TicketsWidget(vm: vm, offerColors: offerColors),
+      ),
+      Gap(AppSize.height(context, 18)),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppSize.width(context, 16)),
+        child: const _ShowAllTicketsWidget(),
       )
     ]);
+  }
+}
+
+class _ShowAllTicketsWidget extends StatelessWidget {
+  const _ShowAllTicketsWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: AppSize.height(context, 42),
+      child: TextButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(AppColors.special.blue),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: AppBorderRadius.smallBorder(context),
+              ),
+            ),
+          ),
+          onPressed: null,
+          child: Text(
+            'Посмотреть все билеты',
+            style: AppTextStyles.title3(context)
+                .copyWith(color: AppColors.basic.white),
+          )),
+    );
+  }
+}
+
+class _TicketsWidget extends ConsumerWidget {
+  const _TicketsWidget({
+    required this.vm,
+    required this.offerColors,
+  });
+
+  final ITicketsSearchVM vm;
+  final List<Color> offerColors;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+        decoration: BoxDecoration(
+            color: AppColors.basic.grey2,
+            borderRadius: AppBorderRadius.mediumBorder(context)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppSize.width(context, 16),
+              vertical: AppSize.height(context, 16)),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Прямые рейсы',
+                  style: AppTextStyles.title2(context),
+                ),
+              ),
+              SizedBox(
+                child: switch (ref.watch(vm.ticketsOffersProvider)) {
+                  AsyncData(:final value) => Column(
+                      children: List.generate(
+                          3,
+                          (index) => AppTicketsOfferWidget(
+                                ticketsOffer: value[index],
+                                color: offerColors[index],
+                              ))),
+                  AsyncError(:final error, :final stackTrace) => AppErrorWidget(
+                      error: error,
+                      stackTrace: stackTrace,
+                    ),
+                  _ => const Center(child: CircularProgressIndicator())
+                },
+              ),
+            ],
+          ),
+        ));
   }
 }
 
@@ -97,10 +152,12 @@ class _OptionsRow extends StatelessWidget {
   const _OptionsRow({
     required this.optionsIcons,
     required this.optionsTexts,
+    required this.onTapList,
   });
 
   final List<String> optionsIcons;
   final List<String> optionsTexts;
+  final List<VoidCallback?> onTapList;
 
   @override
   Widget build(BuildContext context) {
@@ -112,27 +169,31 @@ class _OptionsRow extends StatelessWidget {
           itemCount: 4,
           itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(right: AppSize.width(context, 8)),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.basic.grey3,
-                      borderRadius: AppBorderRadius.bigBorder(context)),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppSize.width(context, 10)),
-                    child: Row(
-                      children: [
-                        if (optionsIcons[index].isNotEmpty)
-                          AppSVGiconWidget(
-                            svgPath: optionsIcons[index],
-                            size: 16,
-                          ),
-                        Gap(AppSize.width(context, 8)),
-                        Text(
-                          optionsTexts[index],
-                          style: AppTextStyles.title3(context)
-                              .copyWith(fontSize: AppSize.width(context, 14)),
-                        )
-                      ],
+                child: InkWell(
+                  onTap: onTapList[index],
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.basic.grey3,
+                        borderRadius: AppBorderRadius.bigBorder(context)),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppSize.width(context, 10)),
+                      child: Row(
+                        children: [
+                          if (optionsIcons[index].isNotEmpty)
+                            AppSVGiconWidget(
+                              svgPath: optionsIcons[index],
+                              size: 16,
+                            ),
+                          if (optionsIcons[index].isNotEmpty)
+                            Gap(AppSize.width(context, 8)),
+                          Text(
+                            optionsTexts[index],
+                            style: AppTextStyles.title3(context)
+                                .copyWith(fontSize: AppSize.width(context, 14)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -28,7 +28,7 @@ class AppTicketsOfferWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: AppSize.height(context, 8)),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: AppSize.width(context, 24),

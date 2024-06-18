@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:tickets_search_test/domain/entities/mapper/entities_mapper.dart';
 import 'package:tickets_search_test/presentation/router/app_router.dart';
 
@@ -20,10 +22,12 @@ abstract class ITicketsSearchVM {
   StateProvider<TextEditingController> get controllerWhereProvider;
 
   StateProvider<bool> get directionWhereChosen;
+  StateProvider<DateTime> get date;
 
   void onTapWhereField(BuildContext context, WidgetRef ref);
   void onTapPromt(BuildContext context, WidgetRef ref, int index);
   void onTapRoute(String value, WidgetRef ref);
+  void onChangeDate(BuildContext context, WidgetRef ref);
 }
 
 class TicketsSearchVM implements ITicketsSearchVM {
@@ -49,6 +53,8 @@ class TicketsSearchVM implements ITicketsSearchVM {
 
   final _directionWhereChosen = StateProvider<bool>((ref) => false);
 
+  final _dateProvider = StateProvider<DateTime>((ref) => DateTime.now());
+
   @override
   StateProvider<TextEditingController> get controllerFromProvider =>
       _controllerFromProvider;
@@ -60,22 +66,8 @@ class TicketsSearchVM implements ITicketsSearchVM {
   @override
   StateProvider<bool> get directionWhereChosen => _directionWhereChosen;
 
-  // @override
-  // StateProvider<List<OfferEntity>> get offersProvider => offersProvider;
-
-  // @override
-  // StateProvider<List<TicketsOfferEntity>> get ticketsOffersProvider =>
-  //     _ticketsOffersProvider;
-
-  // @override
-  // StateProvider<List<TicketEntity>> get ticketsProvider => _ticketsProvider;
-
-  // void init() {
-  //   state = HomeMenuScreenState(
-  //       controllerFrom: TextEditingController(),
-  //       controllerWhere: TextEditingController(),
-  //       directionWhereChosen: false);
-  // }
+  @override
+  StateProvider<DateTime> get date => _dateProvider;
 
   @override
   void onTapWhereField(BuildContext context, WidgetRef ref) {
@@ -126,6 +118,30 @@ class TicketsSearchVM implements ITicketsSearchVM {
     _checkAllRoutePointsExists(ref);
   }
 
+  @override
+  void onChangeDate(BuildContext context, WidgetRef ref) async {
+    print('onChangedate');
+
+    final DateTime? selectedDate = await showDatePicker(
+      context: context,
+      locale: const Locale('ru', 'RU'),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(
+          DateTime.now().year + 1, DateTime.now().month, DateTime.now().day),
+      currentDate: ref.read(_dateProvider),
+    );
+
+    if (selectedDate != null) {
+      ref.read(_dateProvider.notifier).update((state) => selectedDate);
+      print('Выбранная дата: $selectedDate');
+    } else {
+      // Дата не выбрана
+      print('Дата не выбрана');
+    }
+  }
+
+  // Приватные методы
+
   void _checkAllRoutePointsExists(WidgetRef ref) {
     if (ref.read(_controllerFromProvider).text.isEmpty ||
         ref.read(_controllerWhereProvider).text.isEmpty) {
@@ -136,127 +152,3 @@ class TicketsSearchVM implements ITicketsSearchVM {
     RouterHelper.instance.context.pop();
   }
 }
-
-// final homeMenuScreenStateProvider =
-//     StateNotifierProvider<HomeMenuScreenVM, HomeMenuScreenState>((ref) =>
-//         HomeMenuScreenVM(HomeMenuScreenState(
-//             controllerFrom: TextEditingController(),
-//             controllerWhere: TextEditingController(),
-//             directionWhereChosen: false)));
-
-// class HomeMenuScreenVM extends StateNotifier<HomeMenuScreenState> {
-//   HomeMenuScreenVM(super.state) {
-//     init();
-//   }
-
-//   void init() {
-//     state = HomeMenuScreenState(
-//         controllerFrom: TextEditingController(),
-//         controllerWhere: TextEditingController(),
-//         directionWhereChosen: false);
-//   }
-
-//   onTapWhereField(BuildContext context) {
-//     showDialog(
-//         context: context,
-//         builder: (context) {
-//           return AppSearchTicketDialogWidget(
-//             onTapPromt: onTapPromt,
-//             onTapRoute: (String value) => onTapRoute(value),
-//             controllerFrom: state.controllerFrom,
-//             controllerWhere: state.controllerWhere,
-//           );
-//         });
-//   }
-
-//   void onTapPromt(BuildContext context, int index) {
-//     switch (index) {
-//       case 0:
-//         RouterHelper.router.go(RouterHelper.difficultRoutePath);
-//         break;
-//       case 1:
-//         TextEditingController newWhereController = state.controllerWhere;
-//         newWhereController.text = 'Куда угодно';
-//         state = state.copyWith(controllerWhere: newWhereController);
-//         _checkAllRoutePointsExists();
-//         break;
-//       case 2:
-//         RouterHelper.router.go(RouterHelper.holidaysPath);
-//         break;
-//       case 3:
-//         RouterHelper.router.go(RouterHelper.hotTicketsPath);
-//         break;
-//     }
-//   }
-
-//   void onTapRoute(String value) {
-//     TextEditingController newWhereController = state.controllerWhere;
-//     newWhereController.text = value;
-//     state = state.copyWith(controllerWhere: newWhereController);
-//     _checkAllRoutePointsExists();
-//   }
-
-//   void _checkAllRoutePointsExists() {
-//     if (state.controllerFrom.text.isEmpty ||
-//         state.controllerWhere.text.isEmpty) {
-//       return;
-//     }
-
-//     state = state.copyWith(directionWhereChosen: true);
-//     RouterHelper.instance.context.pop();
-//   }
-// }
-
-
-// // abstract class IHomeMenuScreenWM extends StateNotifierProvider<HomeMenuScreenState>{
-// //   TextEditingController get controllerFrom;
-// //   TextEditingController get controllerWhere;
-// //   void onTapWhere(BuildContext context);
-// //   void onTapPromt(BuildContext context, int index);
-// //   void onTapRoute(int index);
-// // }
-
-// // class HomeMenuScreenWM implements IHomeMenuScreenWM {
-// //   final TextEditingController _controllerFrom = TextEditingController();
-// //   final TextEditingController _controllerWhere = TextEditingController();
-
-// //   @override
-// //   TextEditingController get controllerFrom => _controllerFrom;
-
-// //   @override
-// //   TextEditingController get controllerWhere => _controllerWhere;
-
-// //   @override
-// //   void onTapPromt(BuildContext context, int index) {
-// //     switch (index) {
-// //       case 0:
-// //         RouterHelper.router.go(RouterHelper.difficultRoutePath);
-// //       case 1:
-// //         controllerWhere.text = 'Куда угодно';
-// //       case 2:
-// //         RouterHelper.router.go(RouterHelper.holidaysPath);
-// //       case 3:
-// //         RouterHelper.router.go(RouterHelper.hotTicketsPath);
-// //     }
-// //     print(controllerWhere.text);
-// //   }
-
-// //   @override
-// //   void onTapRoute(int index) {
-// //     // TODO: implement onTapRoute
-// //   }
-
-// //   @override
-// //   void onTapWhere(BuildContext context) {
-// //     showDialog(
-// //         context: context,
-// //         builder: (context) {
-// //           return AppSearchTicketDialogWidget(
-// //             onTapPromt: onTapPromt,
-// //             onTapRoute: onTapRoute,
-// //             controllerFrom: controllerFrom,
-// //             controllerWhere: controllerWhere,
-// //           );
-// //         });
-// //   }
-// // }

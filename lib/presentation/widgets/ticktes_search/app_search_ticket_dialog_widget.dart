@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_VM.dart';
 import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
@@ -22,7 +23,7 @@ class AppSearchTicketDialogWidget extends ConsumerWidget {
   final TextEditingController controllerFrom;
   final TextEditingController controllerWhere;
   final VoidCallback? onTapWhereField;
-  final Function(BuildContext, WidgetRef, int) onTapPromt;
+  final Function(BuildContext, int) onTapPromt;
   final Function(String) onTapRoute;
 
   @override
@@ -83,7 +84,7 @@ class AppSearchTicketDialogWidget extends ConsumerWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: AppSize.width(context, 16)),
                 child: _PromtsRowWidget(
-                    onTap: (context, i) => onTapPromt(context, ref, i),
+                    onTap: (context, i) => ref.read(ticketsSearchVMprovider.notifier).onTapPromt(context, i),
                     promtColors: promtColors,
                     promtIcons: promtIcons,
                     promtTexts: promtTexts),

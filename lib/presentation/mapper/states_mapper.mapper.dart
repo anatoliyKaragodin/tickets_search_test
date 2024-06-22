@@ -6,138 +6,308 @@
 
 part of 'states_mapper.dart';
 
-class HomeMenuScreenStateMapper extends ClassMapperBase<HomeMenuScreenState> {
-  HomeMenuScreenStateMapper._();
+class TicketsSearchScreenStateMapper
+    extends ClassMapperBase<TicketsSearchScreenState> {
+  TicketsSearchScreenStateMapper._();
 
-  static HomeMenuScreenStateMapper? _instance;
-  static HomeMenuScreenStateMapper ensureInitialized() {
+  static TicketsSearchScreenStateMapper? _instance;
+  static TicketsSearchScreenStateMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals.use(_instance = HomeMenuScreenStateMapper._());
+      MapperContainer.globals
+          .use(_instance = TicketsSearchScreenStateMapper._());
+      OfferEntityMapper.ensureInitialized();
+      TicketsOfferEntityMapper.ensureInitialized();
     }
     return _instance!;
   }
 
   @override
-  final String id = 'HomeMenuScreenState';
+  final String id = 'TicketsSearchScreenState';
 
-  static TextEditingController _$controllerFrom(HomeMenuScreenState v) =>
+  static TextEditingController _$controllerFrom(TicketsSearchScreenState v) =>
       v.controllerFrom;
-  static const Field<HomeMenuScreenState, TextEditingController>
+  static const Field<TicketsSearchScreenState, TextEditingController>
       _f$controllerFrom = Field('controllerFrom', _$controllerFrom);
-  static TextEditingController _$controllerWhere(HomeMenuScreenState v) =>
+  static TextEditingController _$controllerWhere(TicketsSearchScreenState v) =>
       v.controllerWhere;
-  static const Field<HomeMenuScreenState, TextEditingController>
+  static const Field<TicketsSearchScreenState, TextEditingController>
       _f$controllerWhere = Field('controllerWhere', _$controllerWhere);
-  static bool _$directionWhereChosen(HomeMenuScreenState v) =>
+  static bool _$directionWhereChosen(TicketsSearchScreenState v) =>
       v.directionWhereChosen;
-  static const Field<HomeMenuScreenState, bool> _f$directionWhereChosen =
+  static const Field<TicketsSearchScreenState, bool> _f$directionWhereChosen =
       Field('directionWhereChosen', _$directionWhereChosen);
+  static List<OfferEntity> _$offers(TicketsSearchScreenState v) => v.offers;
+  static const Field<TicketsSearchScreenState, List<OfferEntity>> _f$offers =
+      Field('offers', _$offers);
+  static List<TicketsOfferEntity> _$ticketsOffers(TicketsSearchScreenState v) =>
+      v.ticketsOffers;
+  static const Field<TicketsSearchScreenState, List<TicketsOfferEntity>>
+      _f$ticketsOffers = Field('ticketsOffers', _$ticketsOffers);
+  static DateTime _$date(TicketsSearchScreenState v) => v.date;
+  static const Field<TicketsSearchScreenState, DateTime> _f$date =
+      Field('date', _$date);
 
   @override
-  final MappableFields<HomeMenuScreenState> fields = const {
+  final MappableFields<TicketsSearchScreenState> fields = const {
     #controllerFrom: _f$controllerFrom,
     #controllerWhere: _f$controllerWhere,
     #directionWhereChosen: _f$directionWhereChosen,
+    #offers: _f$offers,
+    #ticketsOffers: _f$ticketsOffers,
+    #date: _f$date,
   };
 
-  static HomeMenuScreenState _instantiate(DecodingData data) {
-    return HomeMenuScreenState(
+  static TicketsSearchScreenState _instantiate(DecodingData data) {
+    return TicketsSearchScreenState(
         controllerFrom: data.dec(_f$controllerFrom),
         controllerWhere: data.dec(_f$controllerWhere),
-        directionWhereChosen: data.dec(_f$directionWhereChosen));
+        directionWhereChosen: data.dec(_f$directionWhereChosen),
+        offers: data.dec(_f$offers),
+        ticketsOffers: data.dec(_f$ticketsOffers),
+        date: data.dec(_f$date));
   }
 
   @override
   final Function instantiate = _instantiate;
 
-  static HomeMenuScreenState fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<HomeMenuScreenState>(map);
+  static TicketsSearchScreenState fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<TicketsSearchScreenState>(map);
   }
 
-  static HomeMenuScreenState fromJson(String json) {
-    return ensureInitialized().decodeJson<HomeMenuScreenState>(json);
+  static TicketsSearchScreenState fromJson(String json) {
+    return ensureInitialized().decodeJson<TicketsSearchScreenState>(json);
   }
 }
 
-mixin HomeMenuScreenStateMappable {
+mixin TicketsSearchScreenStateMappable {
   String toJson() {
-    return HomeMenuScreenStateMapper.ensureInitialized()
-        .encodeJson<HomeMenuScreenState>(this as HomeMenuScreenState);
+    return TicketsSearchScreenStateMapper.ensureInitialized()
+        .encodeJson<TicketsSearchScreenState>(this as TicketsSearchScreenState);
   }
 
   Map<String, dynamic> toMap() {
-    return HomeMenuScreenStateMapper.ensureInitialized()
-        .encodeMap<HomeMenuScreenState>(this as HomeMenuScreenState);
+    return TicketsSearchScreenStateMapper.ensureInitialized()
+        .encodeMap<TicketsSearchScreenState>(this as TicketsSearchScreenState);
   }
 
-  HomeMenuScreenStateCopyWith<HomeMenuScreenState, HomeMenuScreenState,
-          HomeMenuScreenState>
-      get copyWith => _HomeMenuScreenStateCopyWithImpl(
-          this as HomeMenuScreenState, $identity, $identity);
+  TicketsSearchScreenStateCopyWith<TicketsSearchScreenState,
+          TicketsSearchScreenState, TicketsSearchScreenState>
+      get copyWith => _TicketsSearchScreenStateCopyWithImpl(
+          this as TicketsSearchScreenState, $identity, $identity);
   @override
   String toString() {
-    return HomeMenuScreenStateMapper.ensureInitialized()
-        .stringifyValue(this as HomeMenuScreenState);
+    return TicketsSearchScreenStateMapper.ensureInitialized()
+        .stringifyValue(this as TicketsSearchScreenState);
   }
 
   @override
   bool operator ==(Object other) {
-    return HomeMenuScreenStateMapper.ensureInitialized()
-        .equalsValue(this as HomeMenuScreenState, other);
+    return TicketsSearchScreenStateMapper.ensureInitialized()
+        .equalsValue(this as TicketsSearchScreenState, other);
   }
 
   @override
   int get hashCode {
-    return HomeMenuScreenStateMapper.ensureInitialized()
-        .hashValue(this as HomeMenuScreenState);
+    return TicketsSearchScreenStateMapper.ensureInitialized()
+        .hashValue(this as TicketsSearchScreenState);
   }
 }
 
-extension HomeMenuScreenStateValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, HomeMenuScreenState, $Out> {
-  HomeMenuScreenStateCopyWith<$R, HomeMenuScreenState, $Out>
-      get $asHomeMenuScreenState =>
-          $base.as((v, t, t2) => _HomeMenuScreenStateCopyWithImpl(v, t, t2));
+extension TicketsSearchScreenStateValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, TicketsSearchScreenState, $Out> {
+  TicketsSearchScreenStateCopyWith<$R, TicketsSearchScreenState, $Out>
+      get $asTicketsSearchScreenState => $base
+          .as((v, t, t2) => _TicketsSearchScreenStateCopyWithImpl(v, t, t2));
 }
 
-abstract class HomeMenuScreenStateCopyWith<$R, $In extends HomeMenuScreenState,
+abstract class TicketsSearchScreenStateCopyWith<
+    $R,
+    $In extends TicketsSearchScreenState,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, OfferEntity,
+      OfferEntityCopyWith<$R, OfferEntity, OfferEntity>> get offers;
+  ListCopyWith<
+      $R,
+      TicketsOfferEntity,
+      TicketsOfferEntityCopyWith<$R, TicketsOfferEntity,
+          TicketsOfferEntity>> get ticketsOffers;
   $R call(
       {TextEditingController? controllerFrom,
       TextEditingController? controllerWhere,
-      bool? directionWhereChosen});
-  HomeMenuScreenStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      bool? directionWhereChosen,
+      List<OfferEntity>? offers,
+      List<TicketsOfferEntity>? ticketsOffers,
+      DateTime? date});
+  TicketsSearchScreenStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
 
-class _HomeMenuScreenStateCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, HomeMenuScreenState, $Out>
-    implements HomeMenuScreenStateCopyWith<$R, HomeMenuScreenState, $Out> {
-  _HomeMenuScreenStateCopyWithImpl(super.value, super.then, super.then2);
+class _TicketsSearchScreenStateCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, TicketsSearchScreenState, $Out>
+    implements
+        TicketsSearchScreenStateCopyWith<$R, TicketsSearchScreenState, $Out> {
+  _TicketsSearchScreenStateCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<HomeMenuScreenState> $mapper =
-      HomeMenuScreenStateMapper.ensureInitialized();
+  late final ClassMapperBase<TicketsSearchScreenState> $mapper =
+      TicketsSearchScreenStateMapper.ensureInitialized();
+  @override
+  ListCopyWith<$R, OfferEntity,
+          OfferEntityCopyWith<$R, OfferEntity, OfferEntity>>
+      get offers => ListCopyWith($value.offers, (v, t) => v.copyWith.$chain(t),
+          (v) => call(offers: v));
+  @override
+  ListCopyWith<
+      $R,
+      TicketsOfferEntity,
+      TicketsOfferEntityCopyWith<$R, TicketsOfferEntity,
+          TicketsOfferEntity>> get ticketsOffers => ListCopyWith(
+      $value.ticketsOffers,
+      (v, t) => v.copyWith.$chain(t),
+      (v) => call(ticketsOffers: v));
   @override
   $R call(
           {TextEditingController? controllerFrom,
           TextEditingController? controllerWhere,
-          bool? directionWhereChosen}) =>
+          bool? directionWhereChosen,
+          List<OfferEntity>? offers,
+          List<TicketsOfferEntity>? ticketsOffers,
+          DateTime? date}) =>
       $apply(FieldCopyWithData({
         if (controllerFrom != null) #controllerFrom: controllerFrom,
         if (controllerWhere != null) #controllerWhere: controllerWhere,
         if (directionWhereChosen != null)
-          #directionWhereChosen: directionWhereChosen
+          #directionWhereChosen: directionWhereChosen,
+        if (offers != null) #offers: offers,
+        if (ticketsOffers != null) #ticketsOffers: ticketsOffers,
+        if (date != null) #date: date
       }));
   @override
-  HomeMenuScreenState $make(CopyWithData data) => HomeMenuScreenState(
+  TicketsSearchScreenState $make(CopyWithData data) => TicketsSearchScreenState(
       controllerFrom: data.get(#controllerFrom, or: $value.controllerFrom),
       controllerWhere: data.get(#controllerWhere, or: $value.controllerWhere),
       directionWhereChosen:
-          data.get(#directionWhereChosen, or: $value.directionWhereChosen));
+          data.get(#directionWhereChosen, or: $value.directionWhereChosen),
+      offers: data.get(#offers, or: $value.offers),
+      ticketsOffers: data.get(#ticketsOffers, or: $value.ticketsOffers),
+      date: data.get(#date, or: $value.date));
 
   @override
-  HomeMenuScreenStateCopyWith<$R2, HomeMenuScreenState, $Out2>
+  TicketsSearchScreenStateCopyWith<$R2, TicketsSearchScreenState, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _HomeMenuScreenStateCopyWithImpl($value, $cast, t);
+          _TicketsSearchScreenStateCopyWithImpl($value, $cast, t);
+}
+
+class AllTicketsStateMapper extends ClassMapperBase<AllTicketsState> {
+  AllTicketsStateMapper._();
+
+  static AllTicketsStateMapper? _instance;
+  static AllTicketsStateMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = AllTicketsStateMapper._());
+      TicketEntityMapper.ensureInitialized();
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'AllTicketsState';
+
+  static List<TicketEntity> _$tickets(AllTicketsState v) => v.tickets;
+  static const Field<AllTicketsState, List<TicketEntity>> _f$tickets =
+      Field('tickets', _$tickets);
+
+  @override
+  final MappableFields<AllTicketsState> fields = const {
+    #tickets: _f$tickets,
+  };
+
+  static AllTicketsState _instantiate(DecodingData data) {
+    return AllTicketsState(tickets: data.dec(_f$tickets));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static AllTicketsState fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<AllTicketsState>(map);
+  }
+
+  static AllTicketsState fromJson(String json) {
+    return ensureInitialized().decodeJson<AllTicketsState>(json);
+  }
+}
+
+mixin AllTicketsStateMappable {
+  String toJson() {
+    return AllTicketsStateMapper.ensureInitialized()
+        .encodeJson<AllTicketsState>(this as AllTicketsState);
+  }
+
+  Map<String, dynamic> toMap() {
+    return AllTicketsStateMapper.ensureInitialized()
+        .encodeMap<AllTicketsState>(this as AllTicketsState);
+  }
+
+  AllTicketsStateCopyWith<AllTicketsState, AllTicketsState, AllTicketsState>
+      get copyWith => _AllTicketsStateCopyWithImpl(
+          this as AllTicketsState, $identity, $identity);
+  @override
+  String toString() {
+    return AllTicketsStateMapper.ensureInitialized()
+        .stringifyValue(this as AllTicketsState);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return AllTicketsStateMapper.ensureInitialized()
+        .equalsValue(this as AllTicketsState, other);
+  }
+
+  @override
+  int get hashCode {
+    return AllTicketsStateMapper.ensureInitialized()
+        .hashValue(this as AllTicketsState);
+  }
+}
+
+extension AllTicketsStateValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, AllTicketsState, $Out> {
+  AllTicketsStateCopyWith<$R, AllTicketsState, $Out> get $asAllTicketsState =>
+      $base.as((v, t, t2) => _AllTicketsStateCopyWithImpl(v, t, t2));
+}
+
+abstract class AllTicketsStateCopyWith<$R, $In extends AllTicketsState, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, TicketEntity,
+      TicketEntityCopyWith<$R, TicketEntity, TicketEntity>> get tickets;
+  $R call({List<TicketEntity>? tickets});
+  AllTicketsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _AllTicketsStateCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, AllTicketsState, $Out>
+    implements AllTicketsStateCopyWith<$R, AllTicketsState, $Out> {
+  _AllTicketsStateCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<AllTicketsState> $mapper =
+      AllTicketsStateMapper.ensureInitialized();
+  @override
+  ListCopyWith<$R, TicketEntity,
+          TicketEntityCopyWith<$R, TicketEntity, TicketEntity>>
+      get tickets => ListCopyWith($value.tickets,
+          (v, t) => v.copyWith.$chain(t), (v) => call(tickets: v));
+  @override
+  $R call({List<TicketEntity>? tickets}) =>
+      $apply(FieldCopyWithData({if (tickets != null) #tickets: tickets}));
+  @override
+  AllTicketsState $make(CopyWithData data) =>
+      AllTicketsState(tickets: data.get(#tickets, or: $value.tickets));
+
+  @override
+  AllTicketsStateCopyWith<$R2, AllTicketsState, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _AllTicketsStateCopyWithImpl($value, $cast, t);
 }

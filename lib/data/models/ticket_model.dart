@@ -51,39 +51,54 @@ class TicketModel with TicketModelMappable {
   }
 
   static List<TicketModel> parseTickets(Map<String, dynamic> data) {
-
     List<dynamic> tickets = data['tickets'];
 
-    return tickets
-        .map((ticket) => TicketModel(
-              id: ticket['id'],
-              badge: ticket['badge'] ?? '',
-              price: PriceEntity(value: ticket['price']['value']),
-              providerName: ticket['provider_name'],
-              company: ticket['company'],
-              departure: {
-                'town': ticket['departure']['town'],
-                'date': ticket['departure']['date'],
-                'airport': ticket['departure']['airport'],
-              },
-              arrival: {
-                'town': ticket['arrival']['town'],
-                'date': ticket['arrival']['date'],
-                'airport': ticket['arrival']['airport'],
-              },
-              hasTransfer: ticket['has_transfer'],
-              hasVisaTransfer: ticket['has_visa_transfer'],
-              luggage: {
-                'has_luggage': ticket['luggage']['has_luggage'],
-                'price': {'value': ticket['luggage']['price']['value']},
-              },
-              handLuggage: {
-                'has_hand_luggage': ticket['hand_luggage']['has_hand_luggage'],
-                'size': ticket['hand_luggage']['size'] ?? '',
-              },
-              isReturnable: ticket['is_returnable'],
-              isExchangable: ticket['is_exchangable'],
-            ))
-        .toList();
+    return tickets.map((ticket) {
+      dynamic priceData = ticket['price'];
+      PriceEntity priceEntity =
+          PriceEntity(value: priceData != null ? priceData['value'] ?? 0 : 0);
+
+      return TicketModel(
+        id: ticket['id'],
+        badge: ticket['badge'] ?? '',
+        price: priceEntity,
+        providerName: ticket['provider_name'],
+        company: ticket['company'],
+        departure: {
+          'town': ticket['departure']['town'],
+          'date': ticket['departure']['date'],
+          'airport': ticket['departure']['airport'],
+        },
+        arrival: {
+          'town': ticket['arrival']['town'],
+          'date': ticket['arrival']['date'],
+          'airport': ticket['arrival']['airport'],
+        },
+        hasTransfer: ticket['has_transfer'] ?? false,
+        hasVisaTransfer: ticket['has_visa_transfer'] ?? false,
+        luggage: {
+          'has_luggage': ticket['luggage'] != null
+              ? ticket['luggage']['has_luggage'] ?? false
+              : false,
+          'price': {
+            'value': ticket['luggage'] != null
+                ? (ticket['luggage']['price'] != null
+                    ? ticket['luggage']['price']['value'] ?? 0
+                    : 0)
+                : 0
+          },
+        },
+        handLuggage: {
+          'has_hand_luggage': ticket['hand_luggage'] != null
+              ? ticket['hand_luggage']['has_hand_luggage'] ?? false
+              : false,
+          'size': ticket['hand_luggage'] != null
+              ? ticket['hand_luggage']['size'] ?? ''
+              : '',
+        },
+        isReturnable: ticket['is_returnable'] ?? false,
+        isExchangable: ticket['is_exchangable'] ?? false,
+      );
+    }).toList();
   }
 }

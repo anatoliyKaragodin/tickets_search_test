@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tickets_search_test/presentation/providers/offers_provider.dart';
-import 'package:tickets_search_test/presentation/providers/tickets_offers_provider.dart';
-import 'package:tickets_search_test/presentation/providers/tickets_provider.dart';
+
+import 'package:tickets_search_test/presentation/screens/all_tickets_screen/all_tickets_screen.dart';
 import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/difficult_route_sceeen/difficult_route_screen.dart';
 import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/holidays_screen/holidays_screen.dart';
-import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_VM.dart';
 import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_screen.dart';
 import 'package:tickets_search_test/presentation/screens/hotels_screen/hotels_screen.dart';
 import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/hot_tickets_screen/hot_tickets_screen.dart';
@@ -13,7 +11,6 @@ import 'package:tickets_search_test/presentation/screens/main_menu_screen/main_m
 import 'package:tickets_search_test/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:tickets_search_test/presentation/screens/short_path_screen/short_path_screen.dart';
 import 'package:tickets_search_test/presentation/screens/subscribes_screen/subscribes_screen.dart';
-
 
 class RouterHelper {
   static final RouterHelper _instance = RouterHelper._internal();
@@ -43,17 +40,19 @@ class RouterHelper {
   GoRouteInformationParser get routeInformationParser =>
       router.routeInformationParser;
 
-  static const String mainMenuPath = '/main_menu';
+  // static const String mainMenuPath = '/main_menu';
 
-  static const String ticketsPath = '/main_menu/tickets';
-  static const String hotelsPath = '/main_menu/hotels';
-  static const String shortpathPath = '/main_menu/shortpath';
-  static const String subscribesPath = '/main_menu/subscribes';
-  static const String profilePath = '/main_menu/profile';
+  static const String ticketsPath = '/tickets';
+  static const String hotelsPath = '/hotels';
+  static const String shortpathPath = '/shortpath';
+  static const String subscribesPath = '/subscribes';
+  static const String profilePath = '/profile';
 
-  static const String difficultRoutePath = '/main_menu/tickets/difficult_route';
+  static const String difficultRoutePath = '/difficult_route';
   static const String holidaysPath = '/holidays';
   static const String hotTicketsPath = '/hot_tickets';
+
+  static const String allTicketsPath = 'all_tickets';
 
   factory RouterHelper() {
     return _instance;
@@ -69,18 +68,28 @@ class RouterHelper {
             navigatorKey: ticketsTabNavigatorKey,
             routes: [
               GoRoute(
-                path: ticketsPath,
-                pageBuilder: (context, GoRouterState state) {
-                  return getPage(
-                    child: TicketsSearchScreen(
-                        vm: TicketsSearchVM(
-                            offersProvider: offersProvider,
-                            ticketsProvider: ticketsProvider,
-                            ticketsOffersProvider: ticketsOffersProvider)),
-                    state: state,
-                  );
-                },
-              ),
+                  path: ticketsPath,
+                  pageBuilder: (context, GoRouterState state) {
+                    return getPage(
+                      child: const TicketsSearchScreen(),
+                      state: state,
+                    );
+                  },
+                  routes: [
+                    GoRoute(
+                        path: allTicketsPath,
+                        pageBuilder: (context, state) {
+                          final extra = state.extra as Map<String, dynamic>;
+                          return getPage(
+                              child: AllTicketsScreen(
+                                directionFrom: extra['directionFrom'],
+                                directionWhere: extra['directionWhere'],
+                                date: extra['date'],
+                                passengersCount: extra['passengersCount'],
+                              ),
+                              state: state);
+                        }),
+                  ]),
             ],
           ),
           StatefulShellBranch(
@@ -173,6 +182,21 @@ class RouterHelper {
           pageBuilder: (context, state) {
             return getPage(child: const HotTicketsScreen(), state: state);
           }),
+      // All tickets screen
+      // GoRoute(
+      //     path: allTicketsPath,
+      //     pageBuilder: (context, state) {
+      //       final extra = state.extra as Map<String, dynamic>;
+      //       return getPage(
+      //           child: AllTicketsScreen(
+      //             vm: AllTicketsVM(ticketsProvider: ticketsProvider),
+      //             directionFrom: extra['directionFrom'],
+      //             directionWhere: extra['directionWhere'],
+      //             date: extra['date'],
+      //             passengersCount: extra['passengersCount'],
+      //           ),
+      //           state: state);
+      //     }),
     ];
 
     router = GoRouter(

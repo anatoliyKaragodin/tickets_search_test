@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:tickets_search_test/domain/entities/mapper/entities_mapper.dart';
 import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
+import 'package:tickets_search_test/presentation/utils/format/app_format_util.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_adaptive_size.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
+import 'package:tickets_search_test/presentation/widgets/common/app_circle_widget.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 
 class AppTicketsOfferWidget extends StatelessWidget {
@@ -30,14 +31,7 @@ class AppTicketsOfferWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: AppSize.width(context, 24),
-              height: AppSize.height(context, 24),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: color,
-              ),
-            ),
+            AppCircleWidget(color: color),
             Gap(AppSize.width(context, 14)),
             Column(
               children: [
@@ -54,9 +48,7 @@ class AppTicketsOfferWidget extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            NumberFormat.currency(
-                                    locale: 'ru', symbol: '₽', decimalDigits: 0)
-                                .format(ticketsOffer.price.value),
+                            AppFormatUtil.price(ticketsOffer.price.value),
                             style: AppTextStyles.title3(context).copyWith(
                                 fontSize: AppSize.width(context, 14),
                                 color: AppColors.special.blue),

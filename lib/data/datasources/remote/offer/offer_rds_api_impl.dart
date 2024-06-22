@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:tickets_search_test/data/datasources/local/cache_data/tickets_cache_data.dart';
 import 'package:tickets_search_test/data/datasources/remote/offer/offer_rds.dart';
 import 'package:tickets_search_test/data/models/mapper/models_mapper.dart';
 
@@ -13,13 +13,13 @@ class OfferRDSapiImpl implements OfferRDS {
 
   @override
   Future<List<OfferModel>> getAll() async {
-    Response response = await dio.get(offersApiUrl);
+    try {
+      Response response = await dio.get(offersApiUrl);
 
+      return OfferModel.parseOffers(response.data);
+    } catch (e) {
 
-    if (kDebugMode) {
-      print('Offers json: ${response.data.runtimeType}');
+      return OfferModel.parseOffers(TicketsCacheData.offers);
     }
-
-    return OfferModel.parseOffers(response.data);
   }
 }

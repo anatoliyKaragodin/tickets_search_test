@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:tickets_search_test/data/datasources/local/cache_data/tickets_cache_data.dart';
 import 'package:tickets_search_test/data/models/mapper/models_mapper.dart';
 
 import 'tickets_offer_rds.dart';
@@ -13,8 +14,12 @@ class TicketsOfferRDSapiImpl implements TicketsOfferRDS {
 
   @override
   Future<List<TicketsOfferModel>> getAll() async {
-    Response response = await dio.get(ticketsOffersApiUrl);
+    try {
+      Response response = await dio.get(ticketsOffersApiUrl);
 
-    return TicketsOfferModel.parseOffers(response.data);
+      return TicketsOfferModel.parseOffers(response.data);
+    } catch (e) {
+      return TicketsOfferModel.parseOffers(TicketsCacheData.ticketsOffers);
+    }
   }
 }

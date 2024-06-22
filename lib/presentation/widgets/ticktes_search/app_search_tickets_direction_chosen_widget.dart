@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:tickets_search_test/presentation/mapper/states_mapper.dart';
 import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_VM.dart';
 import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
@@ -10,14 +11,13 @@ import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dar
 import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 
 import '../../utils/theme/app_adaptive_size.dart';
-import '../common/app_error_widget.dart';
 import 'app_search_ticket_widget.dart';
 import 'app_tickets_offer_widget.dart';
 
 class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
-  const AppSearchTicktesDirectionChosenWidget({super.key, required this.vm});
+  const AppSearchTicktesDirectionChosenWidget({super.key, required this.state});
 
-  final ITicketsSearchVM vm;
+  final TicketsSearchScreenState state;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,7 +29,7 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
     ];
     final optionsTexts = [
       'обратно',
-      DateFormat('d MMM, EEE', 'ru').format(ref.watch(vm.date)),
+      DateFormat('d MMM, EEE', 'ru').format(state.date),
       '1, эконом',
       'фильтры'
     ];
@@ -39,40 +39,53 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
       AppColors.basic.white
     ];
 
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Gap(AppSize.height(context, 47)),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSize.height(context, 16)),
-        child: AppSearchTicketWidget(
-          controllerFrom: ref.watch(vm.controllerFromProvider),
-          controllerWhere: ref.watch(vm.controllerWhereProvider),
-          textFieldsWidth: 270,
-          prefixIcon: AppIconsPath.leftArrow,
-          textFieldTrailingIcon1: AppIconsPath.sort,
-          textFieldTrailingIcon2: AppIconsPath.close,
+    return SingleChildScrollView(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Gap(AppSize.height(context, 47)),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSize.height(context, 16)),
+          child: AppSearchTicketWidget(
+            controllerFrom: state.controllerFrom,
+            controllerWhere: state.controllerWhere,
+            textFieldsWidth: 270,
+            prefixIcon: AppIconsPath.leftArrow,
+            textFieldTrailingIcon1: AppIconsPath.sort,
+            textFieldTrailingIcon2: AppIconsPath.close,
+          ),
         ),
-      ),
-      Gap(AppSize.height(context, 15)),
-      _OptionsRow(
-          optionsIcons: optionsIcons,
-          optionsTexts: optionsTexts,
-          onTapList: [null, () => vm.onChangeDate(context, ref), null, null]),
-      Gap(AppSize.height(context, 15)),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSize.width(context, 16)),
-        child: _TicketsWidget(vm: vm, offerColors: offerColors),
-      ),
-      Gap(AppSize.height(context, 18)),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSize.width(context, 16)),
-        child: const _ShowAllTicketsWidget(),
-      )
-    ]);
+        Gap(AppSize.height(context, 15)),
+        _OptionsRow(
+            optionsIcons: optionsIcons,
+            optionsTexts: optionsTexts,
+            onTapList: [
+              null,
+              () => ref
+                  .read(ticketsSearchVMprovider.notifier)
+                  .onChangeDate(context),
+              null,
+              null
+            ]),
+        Gap(AppSize.height(context, 15)),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSize.width(context, 16)),
+          child: _TicketsWidget(state: state, offerColors: offerColors),
+        ),
+        Gap(AppSize.height(context, 18)),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSize.width(context, 16)),
+          child: _ShowAllTicketsWidget(
+            onTapShowAllTickets: () => ref.read(ticketsSearchVMprovider.notifier).onTapShowAllTickets(),
+          ),
+        )
+      ]),
+    );
   }
 }
 
 class _ShowAllTicketsWidget extends StatelessWidget {
-  const _ShowAllTicketsWidget();
+  const _ShowAllTicketsWidget({required this.onTapShowAllTickets});
+
+  final VoidCallback onTapShowAllTickets;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +101,7 @@ class _ShowAllTicketsWidget extends StatelessWidget {
               ),
             ),
           ),
-          onPressed: null,
+          onPressed: () => onTapShowAllTickets(),
           child: Text(
             'Посмотреть все билеты',
             style: AppTextStyles.title3(context)
@@ -100,11 +113,11 @@ class _ShowAllTicketsWidget extends StatelessWidget {
 
 class _TicketsWidget extends ConsumerWidget {
   const _TicketsWidget({
-    required this.vm,
+    required this.state,
     required this.offerColors,
   });
 
-  final ITicketsSearchVM vm;
+  final TicketsSearchScreenState state;
   final List<Color> offerColors;
 
   @override
@@ -127,20 +140,14 @@ class _TicketsWidget extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                child: switch (ref.watch(vm.ticketsOffersProvider)) {
-                  AsyncData(:final value) => Column(
+                child: Column(
                       children: List.generate(
                           3,
                           (index) => AppTicketsOfferWidget(
-                                ticketsOffer: value[index],
+                                ticketsOffer: state.ticketsOffers[index],
                                 color: offerColors[index],
                               ))),
-                  AsyncError(:final error, :final stackTrace) => AppErrorWidget(
-                      error: error,
-                      stackTrace: stackTrace,
-                    ),
-                  _ => const Center(child: CircularProgressIndicator())
-                },
+                 
               ),
             ],
           ),

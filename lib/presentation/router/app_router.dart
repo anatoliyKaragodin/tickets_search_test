@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:tickets_search_test/presentation/screens/all_tickets_screen/all_tickets_screen.dart';
-import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/difficult_route_sceeen/difficult_route_screen.dart';
-import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/holidays_screen/holidays_screen.dart';
-import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_screen.dart';
+import 'package:tickets_search_test/presentation/screens/difficult_route_sceeen/difficult_route_screen.dart';
+import 'package:tickets_search_test/presentation/screens/holidays_screen/holidays_screen.dart';
+import 'package:tickets_search_test/presentation/screens/tickets_search_screen/tickets_search_screen.dart';
 import 'package:tickets_search_test/presentation/screens/hotels_screen/hotels_screen.dart';
-import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/hot_tickets_screen/hot_tickets_screen.dart';
+import 'package:tickets_search_test/presentation/screens/hot_tickets_screen/hot_tickets_screen.dart';
 import 'package:tickets_search_test/presentation/screens/main_menu_screen/main_menu_screen.dart';
 import 'package:tickets_search_test/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:tickets_search_test/presentation/screens/short_path_screen/short_path_screen.dart';
@@ -85,6 +85,7 @@ class RouterHelper {
                                 directionFrom: extra['directionFrom'],
                                 directionWhere: extra['directionWhere'],
                                 date: extra['date'],
+                                returnDate: extra['returnDate'],
                                 passengersCount: extra['passengersCount'],
                               ),
                               state: state);

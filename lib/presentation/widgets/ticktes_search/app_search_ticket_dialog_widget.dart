@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_VM.dart';
+import 'package:tickets_search_test/presentation/screens/tickets_search_screen/tickets_search_VM.dart';
 import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
@@ -16,13 +16,15 @@ class AppSearchTicketDialogWidget extends ConsumerWidget {
       {super.key,
       required this.controllerFrom,
       required this.controllerWhere,
-      this.onTapWhereField,
+      // this.onTapWhereField,
       required this.onTapPromt,
-      required this.onTapRoute});
+      required this.onTapRoute,
+      this.onTapSufixIcon2});
 
   final TextEditingController controllerFrom;
   final TextEditingController controllerWhere;
-  final VoidCallback? onTapWhereField;
+  // final VoidCallback? onTapWhereField;
+  final VoidCallback? onTapSufixIcon2;
   final Function(BuildContext, int) onTapPromt;
   final Function(String) onTapRoute;
 
@@ -72,6 +74,8 @@ class AppSearchTicketDialogWidget extends ConsumerWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: AppSize.width(context, 16)),
                 child: AppSearchTicketWidget(
+                    onTapSufixIcon2: onTapSufixIcon2,
+                    onSubmitted2: (value)=> onTapRoute(value),
                     textFieldsWidth: 294,
                     textFieldPrefixIcon2: AppIconsPath.search,
                     textFieldPrefixIcon1: AppIconsPath.airplane2,
@@ -84,7 +88,9 @@ class AppSearchTicketDialogWidget extends ConsumerWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: AppSize.width(context, 16)),
                 child: _PromtsRowWidget(
-                    onTap: (context, i) => ref.read(ticketsSearchVMprovider.notifier).onTapPromt(context, i),
+                    onTap: (context, i) => ref
+                        .read(ticketsSearchVMprovider.notifier)
+                        .onTapPromt(context, i),
                     promtColors: promtColors,
                     promtIcons: promtIcons,
                     promtTexts: promtTexts),

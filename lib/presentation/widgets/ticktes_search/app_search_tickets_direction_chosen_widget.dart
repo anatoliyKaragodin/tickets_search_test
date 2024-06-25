@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:tickets_search_test/presentation/mapper/states_mapper.dart';
-import 'package:tickets_search_test/presentation/screens/main_menu_screen/home_menu_screen/tickets_search_screen/tickets_search_VM.dart';
+import 'package:tickets_search_test/presentation/screens/tickets_search_screen/tickets_search_VM.dart';
 import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
@@ -22,13 +22,15 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final optionsIcons = [
-      AppIconsPath.plus,
+      state.returnDate != null ? '' : AppIconsPath.plus,
       '',
       AppIconsPath.person,
       AppIconsPath.filter
     ];
     final optionsTexts = [
-      'обратно',
+      state.returnDate != null
+          ? 'обратно: ${DateFormat('d MMM, EEE', 'ru').format(state.returnDate!)}'
+          : 'обратно',
       DateFormat('d MMM, EEE', 'ru').format(state.date),
       '1, эконом',
       'фильтры'
@@ -43,8 +45,16 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Gap(AppSize.height(context, 47)),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSize.height(context, 16)),
+          padding:
+              EdgeInsets.symmetric(horizontal: AppSize.height(context, 16)),
           child: AppSearchTicketWidget(
+            onTapIcon: () => ref
+                .read(ticketsSearchVMprovider.notifier)
+                .showSearchTicketsDialog(context),
+            onTapSufixIcon1: () =>
+                ref.read(ticketsSearchVMprovider.notifier).swapRoutes(),
+            onTapSufixIcon2: () =>
+                ref.read(ticketsSearchVMprovider.notifier).clearWhereText(),
             controllerFrom: state.controllerFrom,
             controllerWhere: state.controllerWhere,
             textFieldsWidth: 270,
@@ -58,7 +68,9 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
             optionsIcons: optionsIcons,
             optionsTexts: optionsTexts,
             onTapList: [
-              null,
+              () => ref
+                  .read(ticketsSearchVMprovider.notifier)
+                  .onSelectReturnDate(context),
               () => ref
                   .read(ticketsSearchVMprovider.notifier)
                   .onChangeDate(context),
@@ -74,7 +86,9 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSize.width(context, 16)),
           child: _ShowAllTicketsWidget(
-            onTapShowAllTickets: () => ref.read(ticketsSearchVMprovider.notifier).onTapShowAllTickets(),
+            onTapShowAllTickets: () => ref
+                .read(ticketsSearchVMprovider.notifier)
+                .onTapShowAllTickets(),
           ),
         )
       ]),
@@ -141,13 +155,12 @@ class _TicketsWidget extends ConsumerWidget {
               ),
               SizedBox(
                 child: Column(
-                      children: List.generate(
-                          3,
-                          (index) => AppTicketsOfferWidget(
-                                ticketsOffer: state.ticketsOffers[index],
-                                color: offerColors[index],
-                              ))),
-                 
+                    children: List.generate(
+                        3,
+                        (index) => AppTicketsOfferWidget(
+                              ticketsOffer: state.ticketsOffers[index],
+                              color: offerColors[index],
+                            ))),
               ),
             ],
           ),

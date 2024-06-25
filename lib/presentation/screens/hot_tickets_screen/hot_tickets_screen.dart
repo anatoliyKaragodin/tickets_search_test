@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../router/app_router.dart';
+import '../../router/app_router.dart';
 
-class HolidaysScreen extends StatelessWidget {
-  const HolidaysScreen({super.key});
+class HotTicketsScreen extends StatelessWidget {
+  const HotTicketsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-return Scaffold(
+    return Scaffold(
         appBar: AppBar(
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -15,5 +15,6 @@ return Scaffold(
           RouterHelper.router.go(RouterHelper.ticketsPath);
         },
       ),
-    ));  }
+    ));
+  }
 }

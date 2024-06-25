@@ -46,6 +46,9 @@ class TicketsSearchScreenStateMapper
   static DateTime _$date(TicketsSearchScreenState v) => v.date;
   static const Field<TicketsSearchScreenState, DateTime> _f$date =
       Field('date', _$date);
+  static DateTime? _$returnDate(TicketsSearchScreenState v) => v.returnDate;
+  static const Field<TicketsSearchScreenState, DateTime> _f$returnDate =
+      Field('returnDate', _$returnDate, opt: true);
 
   @override
   final MappableFields<TicketsSearchScreenState> fields = const {
@@ -55,6 +58,7 @@ class TicketsSearchScreenStateMapper
     #offers: _f$offers,
     #ticketsOffers: _f$ticketsOffers,
     #date: _f$date,
+    #returnDate: _f$returnDate,
   };
 
   static TicketsSearchScreenState _instantiate(DecodingData data) {
@@ -64,7 +68,8 @@ class TicketsSearchScreenStateMapper
         directionWhereChosen: data.dec(_f$directionWhereChosen),
         offers: data.dec(_f$offers),
         ticketsOffers: data.dec(_f$ticketsOffers),
-        date: data.dec(_f$date));
+        date: data.dec(_f$date),
+        returnDate: data.dec(_f$returnDate));
   }
 
   @override
@@ -137,7 +142,8 @@ abstract class TicketsSearchScreenStateCopyWith<
       bool? directionWhereChosen,
       List<OfferEntity>? offers,
       List<TicketsOfferEntity>? ticketsOffers,
-      DateTime? date});
+      DateTime? date,
+      DateTime? returnDate});
   TicketsSearchScreenStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -172,7 +178,8 @@ class _TicketsSearchScreenStateCopyWithImpl<$R, $Out>
           bool? directionWhereChosen,
           List<OfferEntity>? offers,
           List<TicketsOfferEntity>? ticketsOffers,
-          DateTime? date}) =>
+          DateTime? date,
+          Object? returnDate = $none}) =>
       $apply(FieldCopyWithData({
         if (controllerFrom != null) #controllerFrom: controllerFrom,
         if (controllerWhere != null) #controllerWhere: controllerWhere,
@@ -180,7 +187,8 @@ class _TicketsSearchScreenStateCopyWithImpl<$R, $Out>
           #directionWhereChosen: directionWhereChosen,
         if (offers != null) #offers: offers,
         if (ticketsOffers != null) #ticketsOffers: ticketsOffers,
-        if (date != null) #date: date
+        if (date != null) #date: date,
+        if (returnDate != $none) #returnDate: returnDate
       }));
   @override
   TicketsSearchScreenState $make(CopyWithData data) => TicketsSearchScreenState(
@@ -190,7 +198,8 @@ class _TicketsSearchScreenStateCopyWithImpl<$R, $Out>
           data.get(#directionWhereChosen, or: $value.directionWhereChosen),
       offers: data.get(#offers, or: $value.offers),
       ticketsOffers: data.get(#ticketsOffers, or: $value.ticketsOffers),
-      date: data.get(#date, or: $value.date));
+      date: data.get(#date, or: $value.date),
+      returnDate: data.get(#returnDate, or: $value.returnDate));
 
   @override
   TicketsSearchScreenStateCopyWith<$R2, TicketsSearchScreenState, $Out2>

@@ -22,9 +22,24 @@ class AppSearchTicketWidget extends StatelessWidget {
       this.textFieldHint1,
       this.textFieldHint2,
       this.textFieldText1,
-      this.textFieldText2});
+      this.textFieldText2,
+      this.onTapIcon,
+      this.onTapPrefixIcon1,
+      this.onTapSufixIcon1,
+      this.onTapPrefixIcon2,
+      this.onTapSufixIcon2,
+      this.onSubmitted1,
+      this.onSubmitted2});
 
   final VoidCallback? onTapWhereField;
+  final VoidCallback? onTapIcon;
+  final VoidCallback? onTapPrefixIcon1;
+  final VoidCallback? onTapSufixIcon1;
+  final VoidCallback? onTapPrefixIcon2;
+  final VoidCallback? onTapSufixIcon2;
+  final Function(String)? onSubmitted1;
+  final Function(String)? onSubmitted2;
+
   final TextEditingController controllerFrom;
   final TextEditingController controllerWhere;
   final String? prefixIcon;
@@ -59,9 +74,12 @@ class AppSearchTicketWidget extends StatelessWidget {
         child: Row(
           children: [
             if (prefixIcon != null)
-              AppSVGiconWidget(
-                svgPath: prefixIcon!,
-                color: AppColors.basic.grey7,
+              InkWell(
+                onTap: onTapIcon,
+                child: AppSVGiconWidget(
+                  svgPath: prefixIcon!,
+                  color: AppColors.basic.grey7,
+                ),
               ),
             Gap(AppSize.width(context, 10)),
             Column(
@@ -72,9 +90,12 @@ class AppSearchTicketWidget extends StatelessWidget {
                   controller: controllerFrom,
                   iconPath: textFieldPrefixIcon1,
                   trailingIconPath: textFieldTrailingIcon1,
-                  onTap: () {},
+                  onTapIcon: onTapPrefixIcon1,
+                  onTapTrailingIcon: onTapSufixIcon1,
                   hint: textFieldHint1 ?? '',
                   onChanged: (value) => null,
+                  onSubmitted: (value) =>
+                      onSubmitted1 != null ? onSubmitted1!(value) : null,
                 ),
                 SizedBox(
                   width: AppSize.width(context, textFieldsWidth),
@@ -86,7 +107,11 @@ class AppSearchTicketWidget extends StatelessWidget {
                     iconPath: textFieldPrefixIcon2,
                     trailingIconPath: textFieldTrailingIcon2,
                     onTap: onTapWhereField,
+                    onTapIcon: onTapPrefixIcon2,
+                    onTapTrailingIcon: onTapSufixIcon2,
                     onChanged: (value) => null,
+                    onSubmitted: (value) =>
+                        onSubmitted2 != null ? onSubmitted2!(value) : null,
                     hint: textFieldHint2 ?? '')
               ],
             )

@@ -10,6 +10,7 @@ class TicketsSearchScreenState with TicketsSearchScreenStateMappable {
   final List<TicketsOfferEntity> ticketsOffers;
 
   final DateTime date;
+  final DateTime? returnDate;
 
   TicketsSearchScreenState({
     required this.controllerFrom,
@@ -18,5 +19,6 @@ class TicketsSearchScreenState with TicketsSearchScreenStateMappable {
     required this.offers,
     required this.ticketsOffers,
     required this.date,
+    this.returnDate
   });
 }

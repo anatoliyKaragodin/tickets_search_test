@@ -1,16 +1,87 @@
 # tickets_search_test
 
-A new Flutter project.
+Тестовое приложение по поиску билетов.
+
+Разработчик: Анатолий Карагодин (telegram: @anatoliy_karagodin)
+
+ТЗ: 
+https://docs.google.com/document/d/12Y_xmJG-B-g51Lhwm69vTf8T00mVImH5AYhZWAEX__Y/edit
+
+Макет: 
+https://www.figma.com/design/u59qhHjKOpI2GmKuDRZBf8/Effective-Mobile.-%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%D0%BE%D0%B2.-%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0-%D0%B0%D0%B2%D0%B8%D0%B0%D0%B1%D0%B8%D0%BB%D0%B5%D1%82%D0%BE%D0%B2?node-id=2974-1089&t=JbhTqGr8v7NZHCZW-0
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Проект построен по Clean arcitecture.  https://habr.com/ru/companies/otus/articles/732178/
 
-A few resources to get you started if this is your first Flutter project:
+СТРУКТУРА
+***********************************
+Слой data(папка data).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- datasources/
+  - remote/ 
+    **Отвечает за получение offers, tickets, tickets_offers(см. ТЗ). Интерфейсы и соответствующие реализации(dio). В текущих реализациях в случае ошибки получение возвращаются хардкод данные, потому что переодически ссылки не работают.**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  - local/
+    **Отвечает за хранение истории поиска(города отправления). Интерфейсы и соответствующие реализации. Там же находятся хардкод данные описанные выше.**
+    
+- models/
+  **Модели сырых данных и маппер(dart_mappable)**  
+
+- repositiries/ 
+  **Реализации интерфесов репозиториев для связи со слоем domain**
+
+************************************
+Слой domain(папка domain).
+
+- di/
+  **Depency injection - внедрение зависимостей. Реализация через get_it.**
+
+- entities/
+  **Сущности, с которыми уже работает приложение, и меппер(dart_mappable)**  
+
+- repositiries/
+  **Интерфейсы репозиториев, которые реализуются на слое data**  
+
+- use_cases/
+  **Юзкейсы, через которые слой presentation взимодействует с domain**
+
+*************************************
+Слой presenatation(папка presentation).
+
+- mapper/
+  **Стейты экранов и маппер(dart_mappable)**
+
+- router/
+  **Роутер приложения(go_router). StatefulShellRoute.indexedStack используется для нижнего меню вкладок главного меню. Данные в конструктор экранов можно передавать через extra(см. AllTicketsScreen и метод onTapShowAllTickets в TicketsSeacrhVM)** 
+
+- screens/ 
+  **Экраны, реализация MVVM(https://apptractor.ru/info/articles/chto-takoe-mvvm-arhitektura.html). Управление состоянием реализовано через riverpod**  
+
+- utils/
+  **Различные вспомогательные утилиты, включая стили приложения**  
+
+- widgets/
+  **Общие виджета и виджеты отдельных экранов. Вынесены виджеты, которые можно переиспользовать, либо виджеты, которые слишком много места занимают. Остальные виджеты вынесены приватными в самих экранах, чтобы не мазолили глаз**  
+
+  КОНЕЦ СТРУКТУРЫ
+  ***************************
+
+*Для перезапуска генерации(dart_mappable) команда в терминале "./rebuld.bat"*  
+
+### Возможные улучшения
+
+  - Добавить обработчик ошибок
+  - Добавить тестирование
+  - Возможно реализовать ещё экраны по макету(дополнительно к ТЗ) 
+  - Реализовать выбор даты через вызов нативных дейтпикеров на платформах(?). Начата работа над вызовом нативного дейтпикера андроида(native_calendar/)
+
+
+
+
+
+
+
+
+
+

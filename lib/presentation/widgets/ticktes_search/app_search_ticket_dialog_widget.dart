@@ -74,12 +74,12 @@ class AppSearchTicketDialogWidget extends ConsumerWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: AppSize.width(context, 16)),
                 child: AppSearchTicketWidget(
-                    onTapSufixIcon2: onTapSufixIcon2,
-                    onSubmitted2: (value)=> onTapRoute(value),
+                    onTextField2LeadingIconTap: onTapSufixIcon2,
+                    onTextField2Submitted: (value)=> onTapRoute(value),
                     textFieldsWidth: 294,
-                    textFieldPrefixIcon2: AppIconsPath.search,
-                    textFieldPrefixIcon1: AppIconsPath.airplane2,
-                    textFieldTrailingIcon2: AppIconsPath.close,
+                    textFieldLeadingIconPath2: AppIconsPath.search,
+                    textFieldLeadingIconPath1: AppIconsPath.airplane2,
+                    textFieldTrailingIconPath2: AppIconsPath.close,
                     controllerFrom: controllerFrom,
                     controllerWhere: controllerWhere),
               ),

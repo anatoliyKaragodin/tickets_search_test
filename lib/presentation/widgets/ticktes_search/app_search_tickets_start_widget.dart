@@ -12,6 +12,7 @@ import '../../utils/theme/app_text_styles.dart';
 import 'app_listview_offer_widget.dart';
 import 'app_search_ticket_widget.dart';
 
+/// Начальный виджет экрана [TicketsSearchScreen], когда не выбрано направление "куда"
 class AppSearchTicketsStartWidget extends ConsumerWidget {
   const AppSearchTicketsStartWidget({
     super.key,
@@ -83,7 +84,7 @@ class _SearchContainer extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(AppSize.width(context, 16)),
           child: AppSearchTicketWidget(
-            prefixIcon: AppIconsPath.search,
+            leadingIconPath: AppIconsPath.search,
             textFieldsWidth: 232,
             textFieldHint1: 'Откуда - Москва',
             textFieldHint2: 'Куда - Турция',

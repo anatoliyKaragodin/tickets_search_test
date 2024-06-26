@@ -48,19 +48,19 @@ class AppSearchTicktesDirectionChosenWidget extends ConsumerWidget {
           padding:
               EdgeInsets.symmetric(horizontal: AppSize.height(context, 16)),
           child: AppSearchTicketWidget(
-            onTapIcon: () => ref
+            onLeadingIconTap: () => ref
                 .read(ticketsSearchVMprovider.notifier)
                 .showSearchTicketsDialog(context),
-            onTapSufixIcon1: () =>
+            onTextField1TrailingIconTap: () =>
                 ref.read(ticketsSearchVMprovider.notifier).swapRoutes(),
-            onTapSufixIcon2: () =>
+            onTextField2TrailingIconTap: () =>
                 ref.read(ticketsSearchVMprovider.notifier).clearWhereText(),
             controllerFrom: state.controllerFrom,
             controllerWhere: state.controllerWhere,
             textFieldsWidth: 270,
-            prefixIcon: AppIconsPath.leftArrow,
-            textFieldTrailingIcon1: AppIconsPath.sort,
-            textFieldTrailingIcon2: AppIconsPath.close,
+            leadingIconPath: AppIconsPath.leftArrow,
+            textFieldTrailingIconPath1: AppIconsPath.sort,
+            textFieldTrailingIconPath2: AppIconsPath.close,
           ),
         ),
         Gap(AppSize.height(context, 15)),

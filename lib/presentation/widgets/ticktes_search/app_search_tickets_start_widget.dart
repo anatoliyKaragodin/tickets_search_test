@@ -48,13 +48,17 @@ class AppSearchTicketsStartWidget extends ConsumerWidget {
         SizedBox(
           height: AppSize.height(context, 214),
           child: ListView.builder(
+            key: const ValueKey('offers_list'),
               itemCount: state.offers.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.only(
                         left: AppSize.width(context, 16),
                         right: AppSize.width(context, 50)),
-                    child: AppListviewOfferWidget(offer: state.offers[index]),
+                    child: AppListviewOfferWidget(
+                      offer: state.offers[index],
+                      key: const ValueKey('offer_widget'),
+                    ),
                   )),
         )
       ],

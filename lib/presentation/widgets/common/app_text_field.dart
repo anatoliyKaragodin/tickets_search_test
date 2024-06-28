@@ -6,19 +6,21 @@ import '../../utils/theme/app_text_styles.dart';
 
 /// Виджет текстового поля с иконками
 class AppTextFieldWidget extends StatelessWidget {
-  const AppTextFieldWidget({
-    super.key,
-    this.onTextChanged,
-    this.onTextSubmitted,
-    this.onFieldTap,
-    required this.hintText,
-    this.leadingIconPath,
-    required this.textController,
-    this.trailingIconPath,
-    required this.widgetWidth,
-    this.onTrailingIconTap,
-    this.onLeadingIconTap,
-  });
+  const AppTextFieldWidget(
+      {super.key,
+      this.onTextChanged,
+      this.onTextSubmitted,
+      this.onFieldTap,
+      required this.hintText,
+      this.leadingIconPath,
+      required this.textController,
+      this.trailingIconPath,
+      required this.widgetWidth,
+      this.onTrailingIconTap,
+      this.onLeadingIconTap,
+      required this.textFieldValueKey,
+      required this.leadingIconKey,
+      required this.trailingIconKey});
 
   /// Callback вызывается при изменении текста.
   final Function(String)? onTextChanged;
@@ -50,12 +52,22 @@ class AppTextFieldWidget extends StatelessWidget {
   /// Callback вызывается при нажатии на левую иконку.
   final VoidCallback? onLeadingIconTap;
 
+  /// Ключ текстфилда для тестирования
+  final String textFieldValueKey;
+
+  /// Ключ правой иконки
+  final String trailingIconKey;
+
+  /// Ключ левой иконки
+  final String leadingIconKey;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: AppSize.height(context, 23),
       width: AppSize.width(context, widgetWidth),
       child: TextField(
+        key: ValueKey(textFieldValueKey),
         onTap: onFieldTap,
         controller: textController,
         onChanged: onTextChanged,
@@ -71,6 +83,7 @@ class AppTextFieldWidget extends StatelessWidget {
           ),
           prefixIcon: leadingIconPath != null
               ? GestureDetector(
+                  key: ValueKey(leadingIconKey),
                   onTap: onLeadingIconTap,
                   child: AppSVGiconWidget(
                     svgPath: leadingIconPath!,
@@ -80,6 +93,7 @@ class AppTextFieldWidget extends StatelessWidget {
               : null,
           suffixIcon: trailingIconPath != null
               ? GestureDetector(
+                  key: ValueKey(trailingIconKey),
                   onTap: onTrailingIconTap,
                   child: AppSVGiconWidget(
                     svgPath: trailingIconPath!,
@@ -88,14 +102,15 @@ class AppTextFieldWidget extends StatelessWidget {
                 )
               : null,
           prefixIconConstraints: leadingIconPath != null
-              ? BoxConstraints.tight(Size(
-                  AppSize.width(context, 24), AppSize.height(context, 24)))
+              ? BoxConstraints.tight(
+                  Size(AppSize.width(context, 24), AppSize.height(context, 24)))
               : null,
           suffixIconConstraints: trailingIconPath != null
-              ? BoxConstraints.tight(Size(
-                  AppSize.width(context, 24), AppSize.height(context, 24)))
+              ? BoxConstraints.tight(
+                  Size(AppSize.width(context, 24), AppSize.height(context, 24)))
               : null,
-          contentPadding: EdgeInsets.only(bottom: AppSize.height(context, 14)), // Сдвиг текста
+          contentPadding: EdgeInsets.only(
+              bottom: AppSize.height(context, 14)), // Сдвиг текста
           hintText: textController.text.isEmpty ? hintText : null,
           border: InputBorder.none,
         ),

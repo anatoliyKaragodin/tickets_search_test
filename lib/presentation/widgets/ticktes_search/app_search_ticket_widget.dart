@@ -117,6 +117,7 @@ class AppSearchTicketWidget extends StatelessWidget {
           children: [
             if (leadingIconPath != null)
               InkWell(
+                key: const ValueKey('search_ticket_icon'),
                 onTap: onLeadingIconTap,
                 child: AppSVGiconWidget(
                   svgPath: leadingIconPath!,
@@ -128,6 +129,9 @@ class AppSearchTicketWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppTextFieldWidget(
+                  leadingIconKey: 'text_field_1_leading_icon',
+                  trailingIconKey: 'text_field_1_trailing_icon',
+                  textFieldValueKey: 'text_field_1',
                   widgetWidth: textFieldsWidth,
                   textController: controllerFrom,
                   leadingIconPath: textFieldLeadingIconPath1,
@@ -135,14 +139,18 @@ class AppSearchTicketWidget extends StatelessWidget {
                   onLeadingIconTap: onTextField1LeadingIconTap,
                   onTrailingIconTap: onTextField1TrailingIconTap,
                   hintText: textFieldHint1 ?? '',
-                  onTextSubmitted: (value) =>
-                      onTextField1Submitted != null ? onTextField1Submitted!(value) : null,
+                  onTextSubmitted: (value) => onTextField1Submitted != null
+                      ? onTextField1Submitted!(value)
+                      : null,
                 ),
                 SizedBox(
                   width: AppSize.width(context, textFieldsWidth),
                   child: Divider(color: AppColors.basic.grey6),
                 ),
                 AppTextFieldWidget(
+                  leadingIconKey: 'text_field_2_leading_icon',
+                  trailingIconKey: 'text_field_2_trailing_icon',
+                  textFieldValueKey: 'text_field_2',
                   widgetWidth: textFieldsWidth,
                   textController: controllerWhere,
                   leadingIconPath: textFieldLeadingIconPath2,
@@ -150,8 +158,9 @@ class AppSearchTicketWidget extends StatelessWidget {
                   onFieldTap: onTapWhereField,
                   onLeadingIconTap: onTextField2LeadingIconTap,
                   onTrailingIconTap: onTextField2TrailingIconTap,
-                  onTextSubmitted: (value) =>
-                      onTextField2Submitted != null ? onTextField2Submitted!(value) : null,
+                  onTextSubmitted: (value) => onTextField2Submitted != null
+                      ? onTextField2Submitted!(value)
+                      : null,
                   hintText: textFieldHint2 ?? '',
                 ),
               ],

@@ -137,6 +137,7 @@ class _RoutesWidget extends StatelessWidget {
               (index) => Column(
                     children: [
                       InkWell(
+                        key: ValueKey('route_$index'),
                         onTap: () => onTap(index),
                         child: Container(
                           height: AppSize.height(context, 56),

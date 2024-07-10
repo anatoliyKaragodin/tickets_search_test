@@ -21,6 +21,7 @@ class AppTicketsOfferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: const ValueKey('tickets_offer_widget'),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: AppColors.basic.grey1),

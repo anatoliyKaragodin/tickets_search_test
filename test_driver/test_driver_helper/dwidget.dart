@@ -5,7 +5,7 @@ import '../app_test.dart';
 typedef TestAction = Future<void> Function();
 
 Future<void> runTestActionsWithDelay(Iterable<TestAction> actions,
-    {Duration delay = const Duration(seconds: 3)}) async {
+    {Duration delay = const Duration(seconds: 1)}) async {
   for (final action in actions) {
     await action();
     await Future.delayed(delay);
@@ -34,6 +34,7 @@ class DWidget {
             pen('Tapping on widget with key: $_valueKey to set text: $text'));
         await _driver.tap(_finder, timeout: timeout);
         await _driver.enterText(text, timeout: timeout);
+        await _driver.sendTextInputAction(TextInputAction.done);
       };
 
   /// Прокрутка до виджета
@@ -78,7 +79,7 @@ class DWidget {
 
   /// Выполнение свайпа вверх
   TestAction swipeUp(
-          {Duration timeout = const Duration(seconds: 1), double dy = -300}) =>
+          {Duration timeout = const Duration(seconds: 1), double dy = -500}) =>
       () async {
         logger.info(pen('Swiping up on widget with key: $_valueKey'));
         await _driver.scroll(_finder, 0, dy, const Duration(milliseconds: 500),
@@ -87,7 +88,7 @@ class DWidget {
 
   /// Выполнение свайпа вниз
   TestAction swipeDown(
-          {Duration timeout = const Duration(seconds: 1), double dy = 300}) =>
+          {Duration timeout = const Duration(seconds: 1), double dy = 500}) =>
       () async {
         logger.info(pen('Swiping down on widget with key: $_valueKey'));
         await _driver.scroll(_finder, 0, dy, const Duration(milliseconds: 500),
@@ -96,7 +97,7 @@ class DWidget {
 
   /// Выполнение свайпа влево
   TestAction swipeLeft(
-          {Duration timeout = const Duration(seconds: 1), double dx = -300}) =>
+          {Duration timeout = const Duration(seconds: 1), double dx = -500}) =>
       () async {
         logger.info(pen('Swiping left on widget with key: $_valueKey'));
         await _driver.scroll(_finder, dx, 0, const Duration(milliseconds: 500),
@@ -105,7 +106,7 @@ class DWidget {
 
   /// Выполнение свайпа вправо
   TestAction swipeRight(
-          {Duration timeout = const Duration(seconds: 1), double dx = 300}) =>
+          {Duration timeout = const Duration(seconds: 1), double dx = 500}) =>
       () async {
         logger.info(pen('Swiping right on widget with key: $_valueKey'));
         await _driver.scroll(_finder, dx, 0, const Duration(milliseconds: 500),
@@ -121,4 +122,9 @@ class DWidget {
         find.descendant(of: _finder, matching: find.byValueKey(attribute)),
         timeout: timeout);
   }
+
+  TestAction selectDate(int date) => () async {
+        await _driver.tap(find.text(date.toString()));
+        await _driver.tap(find.text('ОК'));
+      };
 }

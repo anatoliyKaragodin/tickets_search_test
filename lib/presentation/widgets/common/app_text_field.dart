@@ -83,6 +83,7 @@ class AppTextFieldWidget extends StatelessWidget {
           ),
           prefixIcon: leadingIconPath != null
               ? GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   key: ValueKey(leadingIconKey),
                   onTap: onLeadingIconTap,
                   child: AppSVGiconWidget(
@@ -93,6 +94,7 @@ class AppTextFieldWidget extends StatelessWidget {
               : null,
           suffixIcon: trailingIconPath != null
               ? GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   key: ValueKey(trailingIconKey),
                   onTap: onTrailingIconTap,
                   child: AppSVGiconWidget(

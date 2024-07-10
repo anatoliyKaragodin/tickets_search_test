@@ -53,6 +53,7 @@ class _AppTicketWidgetState extends State<AppTicketWidget> {
       padding: EdgeInsets.only(
           top: AppSize.height(context, widget.ticket.badge.isNotEmpty ? 8 : 0)),
       child: Container(
+        key: const ValueKey('ticket_widget'),
         width: double.infinity,
         decoration: BoxDecoration(
             color: AppColors.basic.grey2,

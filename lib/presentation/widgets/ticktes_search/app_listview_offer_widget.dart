@@ -17,6 +17,7 @@ class AppListviewOfferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      key: const ValueKey('offer_widget'),
       height: AppSize.height(context, 214),
       width: AppSize.width(context, 132),
       child: Column(

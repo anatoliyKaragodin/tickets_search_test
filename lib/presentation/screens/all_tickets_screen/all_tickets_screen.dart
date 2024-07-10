@@ -49,6 +49,7 @@ class AllTicketsScreen extends ConsumerWidget {
               Gap(AppSize.height(context, 34)),
               if (state.tickets.isNotEmpty)
                 Column(
+                  key: const ValueKey('tickets_list'),
                   children: List.generate(
                       state.tickets.length,
                       (index) => Padding(
@@ -97,6 +98,7 @@ class _RouteInfoWidget extends ConsumerWidget {
                 left: AppSize.width(context, 5),
                 right: AppSize.width(context, 14)),
             child: InkWell(
+              key: const ValueKey('all_tickets_screen_back_button'),
               onTap: () => ref.read(allTicketsProvider.notifier).onTapBack(),
               child: AppSVGiconWidget(
                 svgPath: AppIconsPath.leftArrow,

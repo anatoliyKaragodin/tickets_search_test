@@ -51,7 +51,12 @@ void main() {
         // Вводим конечную точку
         searchTicketsScreen.textField_2.setText('Москва'),
 
-        // // Жмём иконку очистки конечной точки
+        /// Закрывает окно и меняет отображение экрана выбора билетов
+
+        // Жмём на кнопку возврата к диалоговому окну
+        searchTicketsScreen.searchTicketIcon.tap(),
+
+        // Жмём икноку очистки конечной точки
         // searchTicketsScreen.textFiled2TrailingIcon.tap(),
 
         // Жмём на один из вариантов конечной точки
@@ -59,15 +64,40 @@ void main() {
 
         /// Закрывает окно и меняет отображение экрана выбора билетов
 
-        // Жмём на кнопку возврата к диалоговому окну
-        searchTicketsScreen.searchTicketIcon.tap(),
+        // Ждём отображения билетов (tickets_offer)
+        searchTicketsScreen.ticketsOfferWidget.waitForVisible(),
 
-        /// Переходит на диалоговое окно для выбора точки прибытия и дат
+        // Жмём кнопку выбора даты
+        searchTicketsScreen.selectDateButton.tap(),
 
-        // Жмём на один из вариантов конечной точки
-        searchTicketsScreen.routeWidget.tap(),
+        // Выбираем дату
+        searchTicketsScreen.selectDateButton.selectDate(DateTime.now().day+1),
+
+        // Выбираем обратную дату
+        searchTicketsScreen.selectReturnDateButton.tap(),
+        searchTicketsScreen.selectDateButton.selectDate(DateTime.now().day+2),
+
+
+        // Жмём кнопку показать все билеты
+        searchTicketsScreen.showAllTicketsButton.tap(),
+
+        /// Переход на экран со всеми билетами
+        
+        // Ждём отображения билетов (ticket)
+        searchTicketsScreen.ticketWidget.waitForVisible(),
+
+        // Скроллим билеты вниз (tickets_list)
+        searchTicketsScreen.ticketsList.swipeUp(),
+
+        // Скроллим билеты вверх (tickets_list)
+        searchTicketsScreen.ticketsList.swipeDown(),
+
+        // Жмём кнопку возврата на предыдущиё экран
+
+        searchTicketsScreen.allTicketsScreenBackButton.tap(),
+
+        /// Переходим на экран с выбранными точками отправления и прибытия
       ]);
     });
-  }, 
-  timeout: const Timeout(Duration(minutes: 5)));
+  }, timeout: const Timeout(Duration(minutes: 10)));
 }

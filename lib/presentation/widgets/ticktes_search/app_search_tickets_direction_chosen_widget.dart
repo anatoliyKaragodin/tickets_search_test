@@ -107,6 +107,7 @@ class _ShowAllTicketsWidget extends StatelessWidget {
       width: double.infinity,
       height: AppSize.height(context, 42),
       child: TextButton(
+        key: const ValueKey('show_all_tickets_button'),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(AppColors.special.blue),
             shape: MaterialStateProperty.all(
@@ -190,6 +191,7 @@ class _OptionsRow extends StatelessWidget {
           itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(right: AppSize.width(context, 8)),
                 child: InkWell(
+                  key: ValueKey('direction_chosen_option_button$index'),
                   onTap: onTapList[index],
                   child: Container(
                     decoration: BoxDecoration(

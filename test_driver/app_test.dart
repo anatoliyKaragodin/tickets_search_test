@@ -2,8 +2,10 @@ import 'package:ansicolor/ansicolor.dart';
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 
 import 'test_driver_helper/dwidget.dart';
+import 'test_driver_helper/screens/test_all_tickets_screen.dart';
 import 'test_driver_helper/screens/test_tickets_search_screen.dart';
 
 final Logger logger = Logger('TestLogger');
@@ -29,8 +31,12 @@ void main() {
       }
     });
 
-    test('full test', () async {
-      final searchTicketsScreen = TestTicketsSearchScreen(driver!);
+    test('tickets search screen test', () async {
+      final searchTicketsScreen =
+          TestTicketsSearchScreen(driver!, WidgetKeys.ticketsSearchScreen);
+
+      final allTicketsScreen =
+          TestAllTicketsScreen(driver!, WidgetKeys.allTicketsScreen);
 
       await runTestActionsWithDelay([
         // Ждём загрузку офферов
@@ -56,7 +62,7 @@ void main() {
         // Жмём на кнопку возврата к диалоговому окну
         searchTicketsScreen.searchTicketIcon.tap(),
 
-        // Жмём икноку очистки конечной точки
+        // // Жмём икноку очистки конечной точки
         // searchTicketsScreen.textFiled2TrailingIcon.tap(),
 
         // Жмём на один из вариантов конечной точки
@@ -71,30 +77,28 @@ void main() {
         searchTicketsScreen.selectDateButton.tap(),
 
         // Выбираем дату
-        searchTicketsScreen.selectDateButton.selectDate(DateTime.now().day+1),
+        searchTicketsScreen.selectDateButton.selectDate(DateTime.now().day + 1),
 
         // Выбираем обратную дату
         searchTicketsScreen.selectReturnDateButton.tap(),
-        searchTicketsScreen.selectDateButton.selectDate(DateTime.now().day+2),
-
+        searchTicketsScreen.selectDateButton.selectDate(DateTime.now().day + 2),
 
         // Жмём кнопку показать все билеты
         searchTicketsScreen.showAllTicketsButton.tap(),
 
         /// Переход на экран со всеми билетами
-        
+
         // Ждём отображения билетов (ticket)
-        searchTicketsScreen.ticketWidget.waitForVisible(),
+        allTicketsScreen.ticketWidget.waitForVisible(),
 
         // Скроллим билеты вниз (tickets_list)
-        searchTicketsScreen.ticketsList.swipeUp(),
+        allTicketsScreen.ticketsList.swipeUp(),
 
         // Скроллим билеты вверх (tickets_list)
-        searchTicketsScreen.ticketsList.swipeDown(),
+        allTicketsScreen.ticketsList.swipeDown(),
 
         // Жмём кнопку возврата на предыдущиё экран
-
-        searchTicketsScreen.allTicketsScreenBackButton.tap(),
+        allTicketsScreen.allTicketsScreenBackButton.tap(),
 
         /// Переходим на экран с выбранными точками отправления и прибытия
       ]);

@@ -1,29 +1,28 @@
 import 'dart:math';
 
-import '../base_screen.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
+
+import '../test_base_screen.dart';
 import '../dwidget.dart';
 
-class TestTicketsSearchScreen extends BaseScreen {
-  TestTicketsSearchScreen(super.driver);
+class TestTicketsSearchScreen extends TestBaseScreen {
+  TestTicketsSearchScreen(super.driver, this.keys);
 
-  DWidget get textField_1 => dWidget('text_field_1');
-  DWidget get textField_2 => dWidget('text_field_2');
-  DWidget get offerWidget => dWidget('offer_widget');
-  DWidget get offerListViewWidget => dWidget('offers_list_widget');
-  DWidget get routeWidget => dWidget('route_${Random().nextInt(2)}');
-  DWidget get searchTicketIcon => dWidget('search_ticket_icon');
-  DWidget get textField1LeadingIcon => dWidget('text_field_1_leading_icon');
-  DWidget get textFieled1TrailingIcon => dWidget('text_field_1_trailing_icon');
-  DWidget get textField2LeadingIcon => dWidget('text_field_2_leading_icon');
-  DWidget get textFiled2TrailingIcon => dWidget('text_field_2_trailing_icon');
+  final TicketsSearchScreenKeys keys;
 
-  DWidget get showAllTicketsButton => dWidget('show_all_tickets_button');
-  DWidget get allTicketsScreenBackButton =>
-      dWidget('all_tickets_screen_back_button');
-  DWidget get ticketsOfferWidget => dWidget('tickets_offer_widget');
-  DWidget get ticketWidget => dWidget('ticket_widget');
-  DWidget get selectDateButton => dWidget('direction_chosen_option_button1');
-  DWidget get selectReturnDateButton =>
-      dWidget('direction_chosen_option_button0');
-  DWidget get ticketsList => dWidget('tickets_list');
+  DWidget get textField_1 => dWidget(keys.textField1);
+  DWidget get textField_2 => dWidget(keys.textField2);
+  DWidget get offerWidget => dWidget(keys.offerWidget);
+  DWidget get offerListViewWidget => dWidget(keys.offerListViewWidget);
+  DWidget get routeWidget =>
+      dWidget('${keys.routeWidget}${Random().nextInt(2)}');
+  DWidget get searchTicketIcon => dWidget(keys.searchTicketIcon);
+  DWidget get textField1LeadingIcon => dWidget(keys.textField1LeadingIcon);
+  DWidget get textFieled1TrailingIcon => dWidget(keys.textField1TrailingIcon);
+  DWidget get textField2LeadingIcon => dWidget(keys.textField2LeadingIcon);
+  DWidget get textFiled2TrailingIcon => dWidget(keys.textField2TrailingIcon);
+  DWidget get showAllTicketsButton => dWidget(keys.showAllTicketsButton);
+  DWidget get ticketsOfferWidget => dWidget(keys.ticketsOfferWidget);
+  DWidget get selectDateButton => dWidget(keys.selectDateButton);
+  DWidget get selectReturnDateButton => dWidget(keys.selectReturnDateButton);
 }

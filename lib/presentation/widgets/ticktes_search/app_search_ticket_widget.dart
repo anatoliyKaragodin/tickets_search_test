@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 import '../../utils/theme/app_adaptive_size.dart';
 import '../../utils/theme/app_border_radius.dart';
 import '../../utils/theme/app_colors.dart';
@@ -117,7 +118,7 @@ class AppSearchTicketWidget extends StatelessWidget {
           children: [
             if (leadingIconPath != null)
               InkWell(
-                key: const ValueKey('search_ticket_icon'),
+                key: ValueKey(WidgetKeys.ticketsSearchScreen.searchTicketIcon),
                 onTap: onLeadingIconTap,
                 child: AppSVGiconWidget(
                   svgPath: leadingIconPath!,

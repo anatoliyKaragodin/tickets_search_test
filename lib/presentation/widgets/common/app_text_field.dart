@@ -84,9 +84,9 @@ class AppTextFieldWidget extends StatelessWidget {
           prefixIcon: leadingIconPath != null
               ? GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  key: ValueKey(leadingIconKey),
                   onTap: onLeadingIconTap,
                   child: AppSVGiconWidget(
+                    key: ValueKey(leadingIconKey),
                     svgPath: leadingIconPath!,
                     color: AppColors.basic.grey6,
                   ),
@@ -95,9 +95,9 @@ class AppTextFieldWidget extends StatelessWidget {
           suffixIcon: trailingIconPath != null
               ? GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  key: ValueKey(trailingIconKey),
                   onTap: onTrailingIconTap,
                   child: AppSVGiconWidget(
+                    key: ValueKey(trailingIconKey),
                     svgPath: trailingIconPath!,
                     color: AppColors.basic.grey6,
                   ),

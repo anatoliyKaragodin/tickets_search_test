@@ -8,6 +8,7 @@ import 'package:tickets_search_test/presentation/utils/theme/app_adaptive_size.d
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_circle_widget.dart';
 
 class AppTicketWidget extends StatefulWidget {
@@ -53,7 +54,7 @@ class _AppTicketWidgetState extends State<AppTicketWidget> {
       padding: EdgeInsets.only(
           top: AppSize.height(context, widget.ticket.badge.isNotEmpty ? 8 : 0)),
       child: Container(
-        key: const ValueKey('ticket_widget'),
+        key: ValueKey(WidgetKeys.allTicketsScreen.ticketWidget),
         width: double.infinity,
         decoration: BoxDecoration(
             color: AppColors.basic.grey2,
@@ -85,8 +86,8 @@ class _AppTicketWidgetState extends State<AppTicketWidget> {
                     children: [
                       SizedBox(
                         height: AppSize.height(context, 38),
-                        child: Center(
-                          child: AppCircleWidget(color: widget.color)),
+                        child:
+                            Center(child: AppCircleWidget(color: widget.color)),
                       ),
                       Gap(AppSize.width(context, 7)),
                       _DepartureArrivalWidget(

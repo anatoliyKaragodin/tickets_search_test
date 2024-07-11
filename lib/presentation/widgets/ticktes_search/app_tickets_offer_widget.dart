@@ -8,6 +8,7 @@ import 'package:tickets_search_test/presentation/utils/format/app_format_util.da
 import 'package:tickets_search_test/presentation/utils/theme/app_adaptive_size.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_circle_widget.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 
@@ -21,6 +22,7 @@ class AppTicketsOfferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: ValueKey(WidgetKeys.ticketsSearchScreen.ticketsOfferWidget),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: AppColors.basic.grey1),

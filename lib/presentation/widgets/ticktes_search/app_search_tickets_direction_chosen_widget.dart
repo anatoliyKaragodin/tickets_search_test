@@ -8,6 +8,7 @@ import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 
 import '../../utils/theme/app_adaptive_size.dart';
@@ -107,6 +108,7 @@ class _ShowAllTicketsWidget extends StatelessWidget {
       width: double.infinity,
       height: AppSize.height(context, 42),
       child: TextButton(
+        key: ValueKey(WidgetKeys.ticketsSearchScreen.showAllTicketsButton),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(AppColors.special.blue),
             shape: MaterialStateProperty.all(
@@ -190,6 +192,7 @@ class _OptionsRow extends StatelessWidget {
           itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(right: AppSize.width(context, 8)),
                 child: InkWell(
+                  key: ValueKey('direction_chosen_option_button$index'),
                   onTap: onTapList[index],
                   child: Container(
                     decoration: BoxDecoration(

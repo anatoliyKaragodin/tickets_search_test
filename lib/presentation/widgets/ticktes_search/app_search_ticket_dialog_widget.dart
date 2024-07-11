@@ -6,6 +6,7 @@ import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 import 'package:tickets_search_test/presentation/widgets/ticktes_search/app_search_ticket_widget.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 
@@ -137,6 +138,7 @@ class _RoutesWidget extends StatelessWidget {
               (index) => Column(
                     children: [
                       InkWell(
+                        key: ValueKey('${WidgetKeys.ticketsSearchScreen.routeWidget}$index'),
                         onTap: () => onTap(index),
                         child: Container(
                           height: AppSize.height(context, 56),

@@ -10,6 +10,7 @@ import 'package:tickets_search_test/presentation/utils/theme/app_colors.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 
+import '../../utils/widget_keys/widget_keys.dart';
 import '../../widgets/all_tickets/app_ticket_widget.dart';
 
 class AllTicketsScreen extends ConsumerWidget {
@@ -49,6 +50,7 @@ class AllTicketsScreen extends ConsumerWidget {
               Gap(AppSize.height(context, 34)),
               if (state.tickets.isNotEmpty)
                 Column(
+                  key: ValueKey(WidgetKeys.allTicketsScreen.ticketsList),
                   children: List.generate(
                       state.tickets.length,
                       (index) => Padding(
@@ -97,6 +99,7 @@ class _RouteInfoWidget extends ConsumerWidget {
                 left: AppSize.width(context, 5),
                 right: AppSize.width(context, 14)),
             child: InkWell(
+              key: ValueKey(WidgetKeys.allTicketsScreen.allTicketsScreenBackButton),
               onTap: () => ref.read(allTicketsProvider.notifier).onTapBack(),
               child: AppSVGiconWidget(
                 svgPath: AppIconsPath.leftArrow,

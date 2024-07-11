@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tickets_search_test/presentation/screens/tickets_search_screen/tickets_search_VM.dart';
 import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 
 import '../../mapper/states_mapper.dart';
 import '../../utils/theme/app_adaptive_size.dart';
@@ -48,13 +49,16 @@ class AppSearchTicketsStartWidget extends ConsumerWidget {
         SizedBox(
           height: AppSize.height(context, 214),
           child: ListView.builder(
+            key: ValueKey(WidgetKeys.ticketsSearchScreen.offerListViewWidget),
               itemCount: state.offers.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.only(
                         left: AppSize.width(context, 16),
                         right: AppSize.width(context, 50)),
-                    child: AppListviewOfferWidget(offer: state.offers[index]),
+                    child: AppListviewOfferWidget(
+                      offer: state.offers[index],
+                    ),
                   )),
         )
       ],

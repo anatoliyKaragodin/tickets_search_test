@@ -6,6 +6,7 @@ import 'package:tickets_search_test/presentation/utils/constants/app_icons_path.
 import 'package:tickets_search_test/presentation/utils/theme/app_adaptive_size.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_border_radius.dart';
 import 'package:tickets_search_test/presentation/utils/theme/app_text_styles.dart';
+import 'package:tickets_search_test/presentation/utils/widget_keys/widget_keys.dart';
 import 'package:tickets_search_test/presentation/widgets/common/app_svg_icon_widget.dart';
 import 'package:intl/intl.dart';
 
@@ -17,6 +18,7 @@ class AppListviewOfferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      key: ValueKey(WidgetKeys.ticketsSearchScreen.offerWidget),
       height: AppSize.height(context, 214),
       width: AppSize.width(context, 132),
       child: Column(
